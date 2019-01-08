@@ -23,7 +23,7 @@ export class FilterBar extends Component {
 
 
     handleCheckboxChange = changeEvent => {
-        const { name } = changeEvent.target;
+        const {name} = changeEvent.target;
 
         this.setState(prevState => ({
             checkboxes: {
@@ -46,6 +46,12 @@ export class FilterBar extends Component {
 
         Object.keys(this.state.checkboxes)
             .filter(checkbox => this.state.checkboxes[checkbox])
+            .forEach(checkbox => {
+                console.log(checkbox, "is selected.");
+            });
+
+        Object.keys(this.state.checkboxes2)
+            .filter(checkbox => this.state.checkboxes2[checkbox])
             .forEach(checkbox => {
                 console.log(checkbox, "is selected.");
             });
@@ -76,16 +82,16 @@ export class FilterBar extends Component {
     render() {
         return (
             <div className="container">
-                <div className="filterBar">
-                    <form action="">
+                <form onSubmit={this.handleFormSubmit}>
+                    <div className="filterBar">
                         <div className="allergies">
                             {this.createCheckboxes()}
                         </div>
                         <div className="diet">
                             {this.createCheckboxes2()}
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         );
     }
