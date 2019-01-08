@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Checkbox from "./Checkbox"
+import Checkbox from "./Checkbox";
 
 
 const ALLERGIES_FILTER = ["Gluten", "Soy", "Peanuts"];
