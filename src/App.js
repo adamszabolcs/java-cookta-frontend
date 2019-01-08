@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import './templatemo-style.css';
 import {FilterBar} from "./components/FilterBar";
 import {Navbar} from "./components/Navbar";
 import {SearchBar} from "./components/SearchBar";
