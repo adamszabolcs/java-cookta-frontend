@@ -49,7 +49,6 @@ export class FilterBar extends Component {
             .forEach(checkbox => {
                 console.log(checkbox, "is selected.");
             });
-
         Object.keys(this.state.checkboxes2)
             .filter(checkbox => this.state.checkboxes2[checkbox])
             .forEach(checkbox => {
@@ -83,13 +82,15 @@ export class FilterBar extends Component {
         return (
             <div className="container">
                 <form onSubmit={this.handleFormSubmit}>
-                    <div className="filterBar">
-                        <div className="allergies">
+                    <div className="row filterBar">
+
+                        <div className="col-sm-6 allergies">
                             {this.createCheckboxes()}
                         </div>
-                        <div className="diet">
+                        <div className="col-sm-6 diet">
                             {this.createCheckboxes2()}
                         </div>
+
                     </div>
                 </form>
             </div>
