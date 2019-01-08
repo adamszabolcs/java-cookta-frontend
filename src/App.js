@@ -3,6 +3,7 @@ import './App.css';
 import {FilterBar} from "./components/FilterBar";
 import {Navbar} from "./components/Navbar";
 import {SearchBar} from "./components/SearchBar";
+import {Featured} from "./components/Featured";
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
           <Navbar/>
           <SearchBar/>
           <FilterBar/>
+          <Featured/>
       </div>
     );
   }
