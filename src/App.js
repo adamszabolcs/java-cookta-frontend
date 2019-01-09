@@ -4,7 +4,7 @@ import './templatemo-style.css';
 import {Navbar} from "./components/Navbar";
 import {SearchBar} from "./components/SearchBar";
 import {Featured} from "./components/Featured";
-import {Recipe} from "./components/Recipe";
+import {Recipes} from "./components/Recipes";
 
 class App extends Component {
   render() {
@@ -13,7 +13,7 @@ class App extends Component {
           <Navbar/>
           <SearchBar/>
           <Featured/>
-          <Recipe/>
+          <Recipes/>
       </div>
     );
   }

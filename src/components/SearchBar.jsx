@@ -26,7 +26,6 @@ export class SearchBar extends Component {
                                            placeholder="Search for recipe..."/>
                                 </div>
                             </div>
-                            <FilterBar/>
                             <div className="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                                 <label htmlFor="btnSubmit">&nbsp;</label>
                                 <button type="submit" className="btn btn-primary tm-btn tm-btn-search text-uppercase"
@@ -34,7 +33,7 @@ export class SearchBar extends Component {
                                 </button>
                             </div>
                         </form>
-
+                        <FilterBar/>
                     </div>
                 </div>
             </div>
