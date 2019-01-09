@@ -18,7 +18,7 @@ export class SearchBar extends Component {
                     </div>
                     <div className="row tm-banner-row" id="tm-section-search">
 
-                        <form action="index.html" method="get" className="tm-search-form tm-section-pad-2">
+                        <form method="get" className="tm-search-form tm-section-pad-2">
                             <div className="form-row tm-search-form-row">
                                 <div className="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                                     <label htmlFor="inputCity">Search for recipe</label>
@@ -26,6 +26,7 @@ export class SearchBar extends Component {
                                            placeholder="Search for recipe..."/>
                                 </div>
                             </div>
+                            <FilterBar/>
                             <div className="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                                 <label htmlFor="btnSubmit">&nbsp;</label>
                                 <button type="submit" className="btn btn-primary tm-btn tm-btn-search text-uppercase"
@@ -33,7 +34,7 @@ export class SearchBar extends Component {
                                 </button>
                             </div>
                         </form>
-                        <FilterBar/>
+
                     </div>
                 </div>
             </div>

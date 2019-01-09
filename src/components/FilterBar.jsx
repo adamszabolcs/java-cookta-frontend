@@ -81,9 +81,7 @@ export class FilterBar extends Component {
     render() {
         return (
             <div className="container">
-                <form onSubmit={this.handleFormSubmit}>
                     <div className="row filterBar">
-
                         <div className="col-sm-6 allergies">
                             {this.createCheckboxes()}
                         </div>
@@ -92,7 +90,6 @@ export class FilterBar extends Component {
                         </div>
 
                     </div>
-                </form>
             </div>
 
         );
