@@ -4,14 +4,17 @@ import '../templatemo-style.css';
 export default class Recipe extends Component {
 
     render() {
+
         return (
                 <div className="tab-pane" id="1a">
                     <div className="tm-recommended-place-wrap">
                         <div className="tm-recommended-place">
-                            <img src="" alt=""/>
+                            <img src={this.props.image} alt=""/>
                             <div className="tm-recommended-description-box">
-                                <h3 className="tm-recommended-title">{this.props.recipe}</h3>
-                                <p className="tm-text-highlight"></p>
+                                <h3 className="tm-recommended-title">{this.props.label}</h3>
+                                <p className="tm-text-highlight">
+                                    {this.props.ingredientLines}
+                                </p>
                                 <p className="tm-text-grey"></p>
                             </div>
 
