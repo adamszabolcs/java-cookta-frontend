@@ -24,8 +24,7 @@ export default class Recipe extends Component {
                             </div>
 
                             <a href="#" className="tm-recommended-price-box">
-                                <p className="tm-recommended-price">$110</p>
-                                <p className="tm-recommended-price-link">Continue Reading</p>
+                                <p className="tm-recommended-price">LET'S COOK</p>
                             </a>
 
                         </div>

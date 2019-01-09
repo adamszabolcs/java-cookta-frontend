@@ -40,7 +40,7 @@ p:last-child { margin-bottom: 0; }
 
 .tm-text-highlight {
     max-height: 200px;
-    overflow-y: scroll;
+    overflow: auto;
     color: #22403c;
     font-weight: 600;
 }
@@ -416,7 +416,6 @@ label { font-weight: 700; }
     -webkit-justify-content: center;
     -ms-flex-pack: center;
     justify-content: center;
-    padding-left: 20px;
     width: 200px;
     transition: all 0.3s ease;
 }
@@ -424,6 +423,7 @@ label { font-weight: 700; }
 .tm-recommended-price-box:hover { background-color: #c66995; }
 
 .tm-recommended-price {
+    text-align: center;
     color: white;
     font-size: 1.6rem;
     font-weight: 600;
