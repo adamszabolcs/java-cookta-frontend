@@ -173,6 +173,7 @@ label { font-weight: 700; }
     max-width: 830px;
     margin-left: 15px;
     margin-right: 15px;
+    border-radius: 18px;
 }
 
 .tm-form-group { float: left; }

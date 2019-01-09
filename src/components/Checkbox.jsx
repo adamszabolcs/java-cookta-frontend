@@ -1,11 +1,12 @@
 import React from "react";
 
-const Checkbox = ({ label, isSelected, onCheckboxChange }) => (
+const Checkbox = ({filterType ,label,free ,isSelected, onCheckboxChange }) => (
     <div className="form-check">
         <label>
             <input
                 type="checkbox"
-                name={label}
+                name={filterType}
+                value={label.toLowerCase()+free}
                 checked={isSelected}
                 onChange={onCheckboxChange}
                 className="form-check-input"

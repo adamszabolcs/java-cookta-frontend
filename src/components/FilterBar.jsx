@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import Checkbox from "./Checkbox";
 
 
-const ALLERGIES_FILTER = ["Gluten", "Soy", "Peanuts"];
-const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat"];
+const HEALTH_FILTER = ["Gluten", "Soy", "Peanuts", "Fish", "Dairy", "Shellfish", "Eggs", "Tree Nuts", "Wheat"];
+const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
 
 export class FilterBar extends Component {
     state = {
-        checkboxes: ALLERGIES_FILTER.reduce(
+        checkboxes: HEALTH_FILTER.reduce(
             (options, option) => ({
                 ...options,
                 [option]: false
@@ -58,7 +58,9 @@ export class FilterBar extends Component {
 
     createCheckbox = option => (
         <Checkbox
+            filterType={"health"}
             label={option}
+            free={"-free"}
             isSelected={this.state.checkboxes[option]}
             onCheckboxChange={this.handleCheckboxChange}
             key={option}
@@ -67,14 +69,16 @@ export class FilterBar extends Component {
 
     createCheckbox2 = option => (
         <Checkbox
+            filterType={"diet"}
             label={option}
+            free={""}
             isSelected={this.state.checkboxes2[option]}
             onCheckboxChange={this.handleCheckboxChange}
             key={option}
         />
     );
 
-    createCheckboxes = () => ALLERGIES_FILTER.map(this.createCheckbox);
+    createCheckboxes = () => HEALTH_FILTER.map(this.createCheckbox);
     createCheckboxes2 = () => DIET_FILTERS.map(this.createCheckbox2);
 
 
@@ -91,7 +95,6 @@ export class FilterBar extends Component {
 
                     </div>
             </div>
-
         );
     }
 }
