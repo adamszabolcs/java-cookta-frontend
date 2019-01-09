@@ -94,6 +94,7 @@ export class FilterBar extends Component {
                     </div>
                 </form>
             </div>
+
         );
     }
 }

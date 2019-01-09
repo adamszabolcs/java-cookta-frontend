@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import './templatemo-style.css';
-import {FilterBar} from "./components/FilterBar";
 import {Navbar} from "./components/Navbar";
 import {SearchBar} from "./components/SearchBar";
 import {Featured} from "./components/Featured";
+import {Recipe} from "./components/Recipe";
 
 class App extends Component {
   render() {
@@ -12,8 +12,8 @@ class App extends Component {
       <div className="App">
           <Navbar/>
           <SearchBar/>
-          <FilterBar/>
           <Featured/>
+          <Recipe/>
       </div>
     );
   }
