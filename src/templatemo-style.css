@@ -39,7 +39,9 @@ p:last-child { margin-bottom: 0; }
 .tm-text-gray { color: #787676; }
 
 .tm-text-highlight {
-    color: #c66995;
+    max-height: 200px;
+    overflow-y: scroll;
+    color: #22403c;
     font-weight: 600;
 }
 
@@ -378,6 +380,7 @@ label { font-weight: 700; }
 }
 
 .tm-recommended-title {
+    text-align: left;
     font-size: 1.2rem;
     font-weight: 600;
     text-transform: uppercase;    
@@ -386,6 +389,7 @@ label { font-weight: 700; }
 .tm-recommended-img { width: 270px; }
 
 .tm-recommended-description-box {
+    text-align: left;
     padding: 30px;
     width: 500px;
 }

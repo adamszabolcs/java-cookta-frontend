@@ -13,7 +13,12 @@ export default class Recipe extends Component {
                             <div className="tm-recommended-description-box">
                                 <h3 className="tm-recommended-title">{this.props.label}</h3>
                                 <p className="tm-text-highlight">
-                                    {this.props.ingredientLines}
+                                    <ul>
+                                        {this.props.ingredientLines.map(ingredient => <li>
+                                            {ingredient}
+                                        </li>)}
+                                    </ul>
+
                                 </p>
                                 <p className="tm-text-grey"></p>
                             </div>
