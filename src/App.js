@@ -25,14 +25,9 @@ class App extends Component {
             .then(data => this.setState({hits: data.hits, isLoading: false}));
     }
 
-
-
     render() {
         const { hits, isLoading } = this.state;
-        {console.log(hits)}
-
-
-
+        //{console.log(hits)}
         return (
             <div className="App">
                 <Navbar/>

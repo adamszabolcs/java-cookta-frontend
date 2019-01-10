@@ -49,6 +49,7 @@ export class FilterBar extends Component {
             .forEach(checkbox => {
                 console.log(checkbox, "is selected.");
             });
+
         Object.keys(this.state.checkboxes2)
             .filter(checkbox => this.state.checkboxes2[checkbox])
             .forEach(checkbox => {
