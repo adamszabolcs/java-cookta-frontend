@@ -62,7 +62,7 @@ export class FilterBar extends Component {
         <input type="checkbox"
                name={"health"}
                key={option}
-               value={option + "-free"}
+               value={option.toLowerCase() + "-free"}
         /> &nbsp; {option} <br/>
         </span>
     );
@@ -72,7 +72,7 @@ export class FilterBar extends Component {
         <input type="checkbox"
                name="diet"
                key={option}
-               value={option}
+               value={option.toLowerCase()}
         /> &nbsp; {option} <br/>
         </span>
     );
