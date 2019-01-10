@@ -28,7 +28,7 @@ class App extends Component {
 
     handleSubmit = () => {
         let url = window.location.href;
-        console.log(url);
+        alert(url);
     }
 
 
