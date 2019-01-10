@@ -26,7 +26,11 @@ export class SearchBar extends Component {
                                            placeholder="Search for recipe..." value={this.props.searchprase} onChange={this.props.onChange}/>
                                 </div>
                             </div>
-                            <FilterBar/>
+                            <FilterBar
+                                checkboxes={this.props.checkboxes}
+                                checkboxes2={this.props.checkboxes2}
+                                handleCheckBoxChange={this.props.handleCheckBoxChange}
+                            />
                             <div className="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                                 <label htmlFor="btnSubmit">&nbsp;</label>
                                 <button type="submit" className="btn btn-primary tm-btn tm-btn-search text-uppercase"

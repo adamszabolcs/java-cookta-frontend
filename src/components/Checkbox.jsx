@@ -1,6 +1,6 @@
 import React from "react";
 
-const Checkbox = ({filterType ,label ,free ,isSelected ,onCheckboxChange }) => (
+const Checkbox = ({filterType ,label ,free ,isSelected, onCheckboxChange }) => (
     <div className="form-check">
         <label>
             <input

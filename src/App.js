@@ -5,10 +5,13 @@ import {Navbar} from "./components/Navbar";
 import {SearchBar} from "./components/SearchBar";
 import {Featured} from "./components/Featured";
 import {Recipes} from "./components/Recipes";
+import Checkbox from "./components/Checkbox";
+
+
+const HEALTH_FILTER = ["Gluten", "Soy", "Peanuts", "Fish", "Dairy", "Shellfish", "Eggs", "Tree Nuts", "Wheat"];
+const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
 
 class App extends Component {
-
-
 
     constructor(props) {
         super(props);
@@ -17,6 +20,18 @@ class App extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.state = {
+            checkboxes: HEALTH_FILTER.reduce(
+                (options, option) => ({
+                    ...options,
+                    [option]: false
+                }),
+            ),
+            checkboxes2: DIET_FILTERS.reduce(
+                (options, option) => ({
+                    ...options,
+                    [option]: false
+                }),
+            ),
             hits: [],
             isLoading: false,
             homeUrl: "http://192.168.160.73:8080/",
@@ -35,6 +50,43 @@ class App extends Component {
             .then(response => response.json())
             .then(data => this.setState({hits: data, isLoading: false}));
     }
+
+
+    handleCheckboxChange = changeEvent => {
+        const {name} = changeEvent.target;
+
+        this.setState(prevState => ({
+            checkboxes: {
+                ...prevState.checkboxes,
+                [name]: !prevState.checkboxes[name]
+            }
+        }));
+
+        this.setState(prevState => ({
+            checkboxes2: {
+                ...prevState.checkboxes2,
+                [name]: !prevState.checkboxes2[name]
+            }
+        }));
+    };
+
+
+    handleFormSubmit = formSubmitEvent => {
+        formSubmitEvent.preventDefault();
+
+        Object.keys(this.state.checkboxes)
+            .filter(checkbox => this.state.checkboxes[checkbox])
+            .forEach(checkbox => {
+                console.log(checkbox, "is selected.");
+            });
+
+        Object.keys(this.state.checkboxes2)
+            .filter(checkbox => this.state.checkboxes2[checkbox])
+            .forEach(checkbox => {
+                console.log(checkbox, "is selected.");
+            });
+    };
+
 
     handleSubmit(event) {
         event.preventDefault();
@@ -69,11 +121,6 @@ class App extends Component {
             });
     }*/
 
-    /*handleSubmit() {
-        let url = window.location.href;
-        alert(url);
-        return url.split("/")[3];
-    }*/
 
     render() {
         const { hits, isLoading } = this.state;
@@ -85,6 +132,9 @@ class App extends Component {
                     searchprase={this.state.searchprase}
                     onSubmit={this.handleSubmit}
                     onChange={this.handleChange}
+                    checkboxes={this.state.checkboxes}
+                    checkboxes2={this.state.checkboxes2}
+                    handleCheckBoxChange={this.handleCheckboxChange}
                 />
                 <Featured/>
                 <Recipes

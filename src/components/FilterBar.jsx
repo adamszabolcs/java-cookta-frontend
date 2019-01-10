@@ -6,39 +6,7 @@ const HEALTH_FILTER = ["Gluten", "Soy", "Peanuts", "Fish", "Dairy", "Shellfish",
 const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
 
 export class FilterBar extends Component {
-    state = {
-        checkboxes: HEALTH_FILTER.reduce(
-            (options, option) => ({
-                ...options,
-                [option]: false
-            }),
-        ),
-        checkboxes2: DIET_FILTERS.reduce(
-            (options, option) => ({
-                ...options,
-                [option]: false
-            }),
-        )
-    };
-
-
-    handleCheckboxChange = changeEvent => {
-        const {name} = changeEvent.target;
-
-        this.setState(prevState => ({
-            checkboxes: {
-                ...prevState.checkboxes,
-                [name]: !prevState.checkboxes[name]
-            }
-        }));
-
-        this.setState(prevState => ({
-            checkboxes2: {
-                ...prevState.checkboxes2,
-                [name]: !prevState.checkboxes2[name]
-            }
-        }));
-    };
+    /*
 
 
     handleFormSubmit = formSubmitEvent => {
@@ -55,28 +23,47 @@ export class FilterBar extends Component {
             .forEach(checkbox => {
                 console.log(checkbox, "is selected.");
             });
-    };
+    };*/
+
+
+    /*handleCheckboxChange = changeEvent => {
+        const {name} = changeEvent.target;
+
+        this.setState(prevState => ({
+            checkboxes: {
+                ...prevState.checkboxes,
+                [name]: !prevState.checkboxes[name]
+            }
+        }));
+
+        this.setState(prevState => ({
+            checkboxes2: {
+                ...prevState.checkboxes2,
+                [name]: !prevState.checkboxes2[name]
+            }
+        }));
+    }*/
 
     createCheckbox = option => (
-        <span
-            key={option}>
-        <input type="checkbox"
-               name={"health"}
-
-               value={option.toLowerCase() + "-free"}
-        /> &nbsp; {option} <br/>
-        </span>
+        <Checkbox
+            filterType={"health"}
+            label={option}
+            free={"-free"}
+            isSelected={this.props.checkboxes[option]}
+            onCheckboxChange={this.props.handleCheckboxChange}
+            key={option}
+        />
     );
 
     createCheckbox2 = option => (
-        <span
-            key={option}>
-        <input type="checkbox"
-               name="diet"
-
-               value={option.toLowerCase()}
-        /> &nbsp; {option} <br/>
-        </span>
+        <Checkbox
+            filterType={"diet"}
+            label={option}
+            free={""}
+            isSelected={this.props.checkboxes2[option]}
+            onCheckboxChange={this.props.handleCheckboxChange}
+            key={option}
+        />
     );
 
     createCheckboxes = () => HEALTH_FILTER.map(this.createCheckbox);
