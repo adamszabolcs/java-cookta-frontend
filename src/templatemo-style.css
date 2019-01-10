@@ -662,3 +662,14 @@ footer p { color: white; }
         width: 100%;
     }    
 }
+
+.allergies {
+    column-count: 3;
+    text-align: left;
+}
+
+.diet {
+    column-count: 2;
+    text-align: left;
+}
+

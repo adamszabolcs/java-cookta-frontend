@@ -86,10 +86,12 @@ export class FilterBar extends Component {
     render() {
         return (
             <div className="container">
+                <div className="row">
+                    <h3 className="text-center col-sm-6"> ALLERGIES </h3>
+                    <h3 className="text-center col-sm-6"> DIET </h3>
+                </div>
                 <div className="row filterBar">
-                    <div className="col-sm-6 allergies">
-                        {/*{HEALTH_FILTER.map(option => <span><input type="checkbox" name="health" key={option}*/}
-                                                                  {/*value={option}/> {option}<br/></span>)}*/}
+                    <div className="col-sm-6 allergies border-right border-dark">
                         {this.createCheckboxes()}
                     </div>
                     <div className="col-sm-6 diet">
