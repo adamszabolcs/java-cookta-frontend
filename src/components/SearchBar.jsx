@@ -30,6 +30,7 @@ export class SearchBar extends Component {
                             <div className="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                                 <label htmlFor="btnSubmit">&nbsp;</label>
                                 <button type="submit" className="btn btn-primary tm-btn tm-btn-search text-uppercase"
+                                        onClick={this.props.onSubmit}
                                         id="btnSubmit">Submit search
                                 </button>
                             </div>

@@ -25,13 +25,23 @@ class App extends Component {
             .then(data => this.setState({hits: data.hits, isLoading: false}));
     }
 
+
+    handleSubmit = () => {
+        let url = window.location.href;
+        console.log(url);
+    }
+
+
+
     render() {
         const { hits, isLoading } = this.state;
         //{console.log(hits)}
         return (
             <div className="App">
                 <Navbar/>
-                <SearchBar/>
+                <SearchBar
+                    onSubmit={this.handleSubmit}
+                />
                 <Featured/>
                 <Recipes
                     recipes={hits}

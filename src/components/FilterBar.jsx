@@ -58,20 +58,22 @@ export class FilterBar extends Component {
     };
 
     createCheckbox = option => (
-        <span>
+        <span
+            key={option}>
         <input type="checkbox"
                name={"health"}
-               key={option}
+
                value={option.toLowerCase() + "-free"}
         /> &nbsp; {option} <br/>
         </span>
     );
 
     createCheckbox2 = option => (
-        <span>
+        <span
+            key={option}>
         <input type="checkbox"
                name="diet"
-               key={option}
+
                value={option.toLowerCase()}
         /> &nbsp; {option} <br/>
         </span>
