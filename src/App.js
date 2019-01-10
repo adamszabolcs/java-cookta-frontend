@@ -15,23 +15,45 @@ class App extends Component {
             hits: [],
             isLoading: false,
         };
+        this.updateState = this.updateState.bind(this);
     }
 
     componentDidMount() {
         this.setState({isLoading: true});
 
-        fetch("https://api.edamam.com/search?q=chicken&app_id=5b5897f7&app_key=9ac6d44f07118d8a2bead5a790b270d5&from=0&to=10&calories=591-722&health=alcohol-free")
+        fetch("http://localhost:8080/api")
             .then(response => response.json())
-            .then(data => this.setState({hits: data.hits, isLoading: false}));
+            .then(data => this.setState({hits: data, isLoading: false}));
     }
 
+
+    // handleFormSubmit = () => {
+    //     let url = document.location.href;
+    //     // axios.get(url, url).then(response => response.json());
+    //     axios.get(url).then(response => {
+    //         console.log(response.data[0].image);
+    //         // alert(response.data);
+    //         this.setState({hits: response.data, isLoading: false});
+    //         console.log(this.state.hits[0].image);
+    //
+    //         // return response.data
+    //     })
+    // }
+
+    updateState = data => {
+        this.setState({hits: data, isLoading: false});
+        console.log(this.state.hits)
+    }
+
+
     render() {
-        const { hits, isLoading } = this.state;
+        const { hits, isLoading, handleFormSubmit } = this.state;
         //{console.log(hits)}
         return (
             <div className="App">
                 <Navbar/>
-                <SearchBar/>
+                <SearchBar
+                updateData={this.updateState.bind(this)}/>
                 <Featured/>
                 <Recipes
                     recipes={hits}
