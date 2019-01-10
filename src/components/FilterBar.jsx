@@ -58,7 +58,7 @@ export class FilterBar extends Component {
     };
 
     createCheckbox = option => (
-        <span>
+        <span key={option}>
         <input type="checkbox"
                name={"health"}
                key={option}
@@ -68,7 +68,7 @@ export class FilterBar extends Component {
     );
 
     createCheckbox2 = option => (
-        <span>
+        <span key={option}>
         <input type="checkbox"
                name="diet"
                key={option}
