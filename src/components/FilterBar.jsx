@@ -58,25 +58,23 @@ export class FilterBar extends Component {
     };
 
     createCheckbox = option => (
-        <Checkbox
-            filterType={"health"}
-            label={option}
-            free={"-free"}
-            isSelected={this.state.checkboxes[option]}
-            onCheckboxChange={this.handleCheckboxChange}
-            key={option}
-        />
+        <span>
+        <input type="checkbox"
+               name={"health"}
+               key={option}
+               value={option + "-free"}
+        /> &nbsp; {option} <br/>
+        </span>
     );
 
     createCheckbox2 = option => (
-        <Checkbox
-            filterType={"diet"}
-            label={option}
-            free={""}
-            isSelected={this.state.checkboxes2[option]}
-            onCheckboxChange={this.handleCheckboxChange}
-            key={option}
-        />
+        <span>
+        <input type="checkbox"
+               name="diet"
+               key={option}
+               value={option}
+        /> &nbsp; {option} <br/>
+        </span>
     );
 
     createCheckboxes = () => HEALTH_FILTER.map(this.createCheckbox);
@@ -86,15 +84,17 @@ export class FilterBar extends Component {
     render() {
         return (
             <div className="container">
-                    <div className="row filterBar">
-                        <div className="col-sm-6 allergies">
-                            {this.createCheckboxes()}
-                        </div>
-                        <div className="col-sm-6 diet">
-                            {this.createCheckboxes2()}
-                        </div>
-
+                <div className="row filterBar">
+                    <div className="col-sm-6 allergies">
+                        {/*{HEALTH_FILTER.map(option => <span><input type="checkbox" name="health" key={option}*/}
+                                                                  {/*value={option}/> {option}<br/></span>)}*/}
+                        {this.createCheckboxes()}
                     </div>
+                    <div className="col-sm-6 diet">
+                        {this.createCheckboxes2()}
+                    </div>
+
+                </div>
             </div>
         );
     }
