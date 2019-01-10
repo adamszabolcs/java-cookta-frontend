@@ -23,13 +23,13 @@ export class SearchBar extends Component {
                                 <div className="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                                     <label htmlFor="inputCity">Search for recipe</label>
                                     <input name="q" type="text" className="form-control" id="inputCity"
-                                           placeholder="Search for recipe..." value={this.props.searchprase} />
+                                           placeholder="Search for recipe..." defaultValue={this.props.searchprase} />
                                 </div>
                             </div>
                             <FilterBar
-                                /*checkboxes={this.props.checkboxes}
+                                checkboxes={this.props.checkboxes}
                                 checkboxes2={this.props.checkboxes2}
-                                handleCheckBoxChange={this.props.handleCheckBoxChange}*/
+                                handleCheckBoxChange={this.props.handleCheckBoxChange}
                             />
                             <div className="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                                 <label htmlFor="btnSubmit">&nbsp;</label>

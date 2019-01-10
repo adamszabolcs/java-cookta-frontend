@@ -20,18 +20,20 @@ class App extends Component {
         //this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
 
         this.state = {
-            /*checkboxes: HEALTH_FILTER.reduce(
+            checkboxes: HEALTH_FILTER.reduce(
                 (options, option) => ({
                     ...options,
                     [option]: false
                 }),
+                {}
             ),
             checkboxes2: DIET_FILTERS.reduce(
                 (options, option) => ({
                     ...options,
                     [option]: false
                 }),
-            ),*/
+                {}
+            ),
             hits: [],
             isLoading: false,
             searchprase: ""
@@ -50,25 +52,25 @@ class App extends Component {
     }
 
 
-    /*handleCheckboxChange = name => {
-        /!*const {name} = changeEvent.target;*!/
+    handleCheckboxChange = name => {
+        //const { name } = changeEvent.target;
 
         this.setState(prevState => ({
             checkboxes: {
                 ...prevState.checkboxes,
                 [name]: !prevState.checkboxes[name]
-            }
-        }));
-
-        this.setState(prevState => ({
+            },
             checkboxes2: {
                 ...prevState.checkboxes2,
                 [name]: !prevState.checkboxes2[name]
             }
         }));
-    };*/
+        this.logChecked()
+    };
 
-
+    logChecked(){
+        console.log(this.state.checkboxes)
+    }
     /*handleCheckboxChange = name =>{
         console.log(name);
         console.log("lol");
@@ -136,9 +138,9 @@ class App extends Component {
                     searchprase={this.state.searchprase}
                     onSubmit={this.handleSubmit}
                     /*onChange={this.handleChange}*/
-                    /*checkboxes={this.state.checkboxes}
+                    checkboxes={this.state.checkboxes}
                     checkboxes2={this.state.checkboxes2}
-                    handleCheckBoxChange={this.handleCheckboxChange}*/
+                    handleCheckBoxChange={this.handleCheckboxChange}
                 />
                 <Featured/>
                 <Recipes

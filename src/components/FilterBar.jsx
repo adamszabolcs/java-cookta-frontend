@@ -5,7 +5,7 @@ const HEALTH_FILTER = ["Gluten", "Soy", "Peanuts", "Fish", "Dairy", "Shellfish",
 const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
 
 export class FilterBar extends Component {
-    state = {
+    /*state = {
         checkboxes: HEALTH_FILTER.reduce(
             (options, option) => ({
                 ...options,
@@ -20,21 +20,26 @@ export class FilterBar extends Component {
             }),
             {}
         )
-    };
+    };*/
 
 
-    handleCheckboxChange = changeEvent => {
+    /*handleCheckboxChange = changeEvent => {
         const { name } = changeEvent.target;
 
         this.setState(prevState => ({
             checkboxes: {
                 ...prevState.checkboxes,
                 [name]: !prevState.checkboxes[name]
+            },
+            checkboxes2: {
+                ...prevState.checkboxes2,
+                [name]: !prevState.checkboxes2[name]
             }
         }));
-    };
 
-    handleFormSubmit = formSubmitEvent => {
+    };*/
+
+    /*handleFormSubmit = formSubmitEvent => {
         formSubmitEvent.preventDefault();
 
         Object.keys(this.state.checkboxes)
@@ -42,14 +47,14 @@ export class FilterBar extends Component {
             .forEach(checkbox => {
                 console.log(checkbox, "is selected.");
             });
-    };
+    };*/
 
     createCheckbox = option => (
         <Checkbox
             label={option}
             free={"-free"}
-            isSelected={this.state.checkboxes[option]}
-            onCheckboxChange={this.handleCheckboxChange}
+            isSelected={this.props.checkboxes[option]}
+            onCheckboxChange={this.props.handleCheckBoxChange}
             key={option}
         />
     );
@@ -59,8 +64,8 @@ export class FilterBar extends Component {
         <Checkbox
             label={option}
             free={""}
-            isSelected={this.state.checkboxes[option]}
-            onCheckboxChange={this.handleCheckboxChange}
+            isSelected={this.props.checkboxes[option]}
+            onCheckboxChange={this.props.handleCheckBoxChange}
             key={option}
         />
     );
