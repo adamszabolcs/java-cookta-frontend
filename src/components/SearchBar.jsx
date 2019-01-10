@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
 import {FilterBar} from "./FilterBar";
+import axios from 'axios';
 
 export class SearchBar extends Component {
+
+    handleFormSubmit() {
+        let url = document.location.href;
+        axios.get(url, url);
+    }
 
     render() {
         return (
@@ -18,7 +24,7 @@ export class SearchBar extends Component {
                     </div>
                     <div className="row tm-banner-row" id="tm-section-search">
 
-                        <form action="/search/" method="get" className="tm-search-form tm-section-pad-2">
+                        <form action="/search/" method="get" className="tm-search-form tm-section-pad-2" onSubmit={this.handleFormSubmit()}>
                             <div className="form-row tm-search-form-row">
                                 <div className="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                                     <label htmlFor="inputCity">Search for recipe</label>
