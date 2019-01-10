@@ -5,7 +5,7 @@ const Checkbox = ({filterType ,label ,free ,isSelected ,onCheckboxChange }) => (
         <label>
             <input
                 type="checkbox"
-                name={label.toLowerCase()+free}
+                name={label}
                 value={label.toLowerCase()+free}
                 checked={isSelected}
                 onChange={onCheckboxChange}
