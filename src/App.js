@@ -104,9 +104,9 @@ class App extends Component {
         });
     }
 
-    handleChange(event) {
+    /*handleChange(event) {
         this.setState({searchprase: event.target.value});
-    }
+    }*/
 
 
    /* performSearch = (query = false) => {
@@ -135,10 +135,10 @@ class App extends Component {
                 <SearchBar
                     searchprase={this.state.searchprase}
                     onSubmit={this.handleSubmit}
-                    onChange={this.handleChange}
-                    checkboxes={this.state.checkboxes}
+                    /*onChange={this.handleChange}*/
+                    /*checkboxes={this.state.checkboxes}
                     checkboxes2={this.state.checkboxes2}
-                    handleCheckBoxChange={this.handleCheckboxChange}
+                    handleCheckBoxChange={this.handleCheckboxChange}*/
                 />
                 <Featured/>
                 <Recipes
