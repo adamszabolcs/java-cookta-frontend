@@ -3,6 +3,8 @@ import '../templatemo-style.css';
 
 export default class Recipe extends Component {
 
+
+
     render() {
         return (
                 <div className="tab-pane" id="1a">

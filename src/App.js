@@ -5,7 +5,6 @@ import {Navbar} from "./components/Navbar";
 import {SearchBar} from "./components/SearchBar";
 import {Featured} from "./components/Featured";
 import {Recipes} from "./components/Recipes";
-import Checkbox from "./components/Checkbox";
 
 
 const HEALTH_FILTER = ["Gluten", "Soy", "Peanuts", "Fish", "Dairy", "Shellfish", "Eggs", "Tree Nuts", "Wheat"];
@@ -18,9 +17,10 @@ class App extends Component {
         let basurl = "https://api.edamam.com/search?q=chicken&app_id=5b5897f7&app_key=9ac6d44f07118d8a2bead5a790b270d5&from=0&to=10&calories=591-722&health=alcohol-free"
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        //this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
 
         this.state = {
-            checkboxes: HEALTH_FILTER.reduce(
+            /*checkboxes: HEALTH_FILTER.reduce(
                 (options, option) => ({
                     ...options,
                     [option]: false
@@ -31,11 +31,9 @@ class App extends Component {
                     ...options,
                     [option]: false
                 }),
-            ),
+            ),*/
             hits: [],
             isLoading: false,
-            homeUrl: "http://192.168.160.73:8080/",
-            searchUrl: "http://192.168.160.73:8080/search/q=",
             searchprase: ""
         };
     }
@@ -46,14 +44,14 @@ class App extends Component {
 
         //this.performSearch();
 
-        fetch("http://192.168.160.73:8080/api")
+        fetch("https://api.edamam.com/search?q=chicken&app_id=5b5897f7&app_key=9ac6d44f07118d8a2bead5a790b270d5&from=0&to=10&calories=591-722&health=alcohol-free")
             .then(response => response.json())
-            .then(data => this.setState({hits: data, isLoading: false}));
+            .then(data => this.setState({hits: data.hits, isLoading: false}));
     }
 
 
-    handleCheckboxChange = changeEvent => {
-        const {name} = changeEvent.target;
+    /*handleCheckboxChange = name => {
+        /!*const {name} = changeEvent.target;*!/
 
         this.setState(prevState => ({
             checkboxes: {
@@ -68,7 +66,13 @@ class App extends Component {
                 [name]: !prevState.checkboxes2[name]
             }
         }));
-    };
+    };*/
+
+
+    /*handleCheckboxChange = name =>{
+        console.log(name);
+        console.log("lol");
+    }
 
 
     handleFormSubmit = formSubmitEvent => {
@@ -85,7 +89,7 @@ class App extends Component {
             .forEach(checkbox => {
                 console.log(checkbox, "is selected.");
             });
-    };
+    };*/
 
 
     handleSubmit(event) {
