@@ -22,7 +22,7 @@ export default class Recipe extends Component {
                                 <p className="tm-text-grey"></p>
                             </div>
 
-                            <a href="#" className="tm-recommended-price-box">
+                            <a href={this.props.url} className="tm-recommended-price-box">
                                 <p className="tm-recommended-price">LET'S COOK</p>
                             </a>
 
