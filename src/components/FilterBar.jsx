@@ -5,50 +5,6 @@ const HEALTH_FILTER = ["Gluten", "Soy", "Peanuts", "Fish", "Dairy", "Shellfish",
 const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
 
 export class FilterBar extends Component {
-    /*state = {
-        checkboxes: HEALTH_FILTER.reduce(
-            (options, option) => ({
-                ...options,
-                [option]: false
-            }),
-            {}
-        ),
-        checkboxes2: DIET_FILTERS.reduce(
-            (options, option) => ({
-                ...options,
-                [option]: false
-            }),
-            {}
-        )
-    };*/
-
-
-    /*handleCheckboxChange = changeEvent => {
-        const { name } = changeEvent.target;
-
-        this.setState(prevState => ({
-            checkboxes: {
-                ...prevState.checkboxes,
-                [name]: !prevState.checkboxes[name]
-            },
-            checkboxes2: {
-                ...prevState.checkboxes2,
-                [name]: !prevState.checkboxes2[name]
-            }
-        }));
-
-    };*/
-
-    /*handleFormSubmit = formSubmitEvent => {
-        formSubmitEvent.preventDefault();
-
-        Object.keys(this.state.checkboxes)
-            .filter(checkbox => this.state.checkboxes[checkbox])
-            .forEach(checkbox => {
-                console.log(checkbox, "is selected.");
-            });
-    };*/
-
     createCheckbox = option => (
         <Checkbox
             label={option}
