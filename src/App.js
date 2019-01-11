@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import './templatemo-style.css';
-import {Navbar} from "./components/Navbar";
 import {SearchBar} from "./components/SearchBar";
 import {Featured} from "./components/Featured";
 import {Recipes} from "./components/Recipes";
@@ -46,15 +45,11 @@ class App extends Component {
 
         this.performSearch();
 
-        /*fetch("http://localhost:8080/api/")
-            .then(response => response.json())
-            .then(data => this.setState({hits: data, isLoading: false}));*/
     }
 
      performSearch = (query = '') => {
         let passed = "";
         if(query !== ''){
-            //let searchy = this.handleSubmit();
             passed = "search/" + query;
         }
          console.log(passed);
@@ -71,7 +66,6 @@ class App extends Component {
 
 
     handleCheckboxChange = name => {
-        //const { name } = changeEvent.target;
 
         this.setState(prevState => ({
             diet: {
@@ -121,16 +115,16 @@ class App extends Component {
 
 
     render() {
-        const { hits, isLoading } = this.state;
+        const { hits, isLoading, diet, health, searchprase } = this.state;
 
         return (
             <div className="App">
                 <SearchBar
-                    searchprase={this.state.searchprase}
+                    searchprase={searchprase}
                     onSubmit={this.handleSubmit}
                     searchValueChange={this.handleChange}
-                    checkboxes={this.state.diet}
-                    checkboxes2={this.state.health}
+                    checkboxes={diet}
+                    checkboxes2={health}
                     handleCheckBoxChange={this.handleCheckboxChange}
                 />
                 <Featured/>

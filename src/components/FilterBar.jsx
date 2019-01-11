@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Checkbox from "./Checkbox";
 
-const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
+const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"]; // code duplication
 const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
 
 export class FilterBar extends Component {
@@ -25,7 +25,6 @@ export class FilterBar extends Component {
             key={option}
         />
     );
-
 
     createCheckboxes = () => HEALTH_FILTER.map(this.createCheckbox);
     createCheckboxes2 = () => DIET_FILTERS.map(this.createCheckbox2);
