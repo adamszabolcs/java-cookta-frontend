@@ -108,6 +108,10 @@ class App extends Component {
         urlPart = urlPart.substring(0, urlPart.length -1);
         console.log(urlPart);
         this.performSearch(urlPart)
+
+        /*fetch("http://localhost:8080/api/search/" + urlPart)
+            .then(response => response.json())
+            .then(data => this.setState({hits: data, isLoading: false}));*/
     }
 
     handleChange(event) {
