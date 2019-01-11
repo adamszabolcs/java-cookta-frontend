@@ -21,14 +21,14 @@ class App extends Component {
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
-            checkboxes: HEALTH_FILTER.reduce(
+            diet: HEALTH_FILTER.reduce(
                 (options, option) => ({
                     ...options,
                     [option]: false
                 }),
                 {}
             ),
-            checkboxes2: DIET_FILTERS.reduce(
+            health: DIET_FILTERS.reduce(
                 (options, option) => ({
                     ...options,
                     [option]: false
@@ -52,24 +52,42 @@ class App extends Component {
             .then(data => this.setState({hits: data.hits, isLoading: false}));
     }
 
+     performSearch = (query = false) => {
+        let passed = "";
+        if(query){
+            let searchy = this.handleSubmit();
+            passed = "search/" + searchy;
+        }
+        fetch("http://192.168.160.73:8080/api/"+passed)
+            .then(response => response.json())
+            .then(responseData => {this.setState({hits: responseData, isLoading: false
+            });
+            })
+            .catch(error => {
+                console.log('Error fetching and parsing data', error);
+            });
+    }
+
 
     handleCheckboxChange = name => {
         //const { name } = changeEvent.target;
 
         this.setState(prevState => ({
-            checkboxes: {
-                ...prevState.checkboxes,
-                [name]: !prevState.checkboxes[name]
+            diet: {
+                ...prevState.diet,
+                [name]: !prevState.diet[name]
             },
-            checkboxes2: {
-                ...prevState.checkboxes2,
-                [name]: !prevState.checkboxes2[name]
+            health: {
+                ...prevState.health,
+                [name]: !prevState.health[name]
             }
         }));
+
+        /*console.log(this.state.diet);
+        console.log(this.state.health);*/
     };
 
-    /*
-    handleFormSubmit = formSubmitEvent => {
+    /*handleFormSubmit = formSubmitEvent => {
         formSubmitEvent.preventDefault();
 
         Object.keys(this.state.checkboxes)
@@ -88,36 +106,34 @@ class App extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        let urlPart = "q=" + this.state.searchprase+"&";
+        let diet = this.state.diet;
+        let health = this.state.health;
 
-        console.log(event.target);
-        const data = new FormData(event.target);
-        console.log(data);
-        fetch("http://192.168.160.73:8080/api/search", {
+        for(let d in diet){
+            console.log(d);
+            if(diet[d] && d in DIET_FILTERS){
+                urlPart += "diet" + "=" + d.toLowerCase()+"&"
+            }
+        }
+
+        for(let h in health){
+            if(health[h] && h in HEALTH_FILTER){
+                urlPart += "health" + "=" + h.toLowerCase()+"&"
+            }
+        }
+
+        console.log(urlPart);
+
+        /*fetch("http://192.168.160.73:8080/api/search", {
             method: 'POST',
             body: data,
-        });
+        });*/
     }
 
     handleChange(event) {
         this.setState({searchprase: event.target.value});
     }
-
-
-   /* performSearch = (query = false) => {
-        let passed = "";
-        if(query){
-            let searchy = this.handleSubmit();
-            passed = "search/" + searchy;
-        }
-        fetch("http://192.168.160.73:8080/api/"+passed)
-            .then(response => response.json())
-            .then(responseData => {this.setState({hits: responseData, isLoading: false
-            });
-            })
-            .catch(error => {
-                console.log('Error fetching and parsing data', error);
-            });
-    }*/
 
 
     render() {
@@ -130,8 +146,8 @@ class App extends Component {
                     searchprase={this.state.searchprase}
                     onSubmit={this.handleSubmit}
                     searchValueChange={this.handleChange}
-                    checkboxes={this.state.checkboxes}
-                    checkboxes2={this.state.checkboxes2}
+                    checkboxes={this.state.diet}
+                    checkboxes2={this.state.health}
                     handleCheckBoxChange={this.handleCheckboxChange}
                 />
                 <Featured/>
