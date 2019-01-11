@@ -3,6 +3,8 @@ import '../templatemo-style.css';
 
 export default class Recipe extends Component {
 
+
+
     render() {
         return (
                 <div className="tab-pane" id="1a">
@@ -22,7 +24,7 @@ export default class Recipe extends Component {
                                 <p className="tm-text-grey"></p>
                             </div>
 
-                            <a href="#" className="tm-recommended-price-box">
+                            <a href={this.props.url} target="_blank" className="tm-recommended-price-box">
                                 <p className="tm-recommended-price">LET'S COOK</p>
                             </a>
 
