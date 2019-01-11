@@ -84,30 +84,13 @@ class App extends Component {
             }
         }));
 
-        /*console.log(this.state.diet);
-        console.log(this.state.health);*/
     };
 
-    /*handleFormSubmit = formSubmitEvent => {
-        formSubmitEvent.preventDefault();
-
-        Object.keys(this.state.checkboxes)
-            .filter(checkbox => this.state.checkboxes[checkbox])
-            .forEach(checkbox => {
-                console.log(checkbox, "is selected.");
-            });
-
-        Object.keys(this.state.checkboxes2)
-            .filter(checkbox => this.state.checkboxes2[checkbox])
-            .forEach(checkbox => {
-                console.log(checkbox, "is selected.");
-            });
-    };*/
 
 
     handleSubmit(event) {
         event.preventDefault();
-        let urlPart = "q=" + this.state.searchprase+"&";
+        let urlPart = "?q=" + this.state.searchprase+"&";
         let diet = this.state.diet;
         let health = this.state.health;
 
@@ -126,11 +109,6 @@ class App extends Component {
         urlPart = urlPart.substring(0, urlPart.length -1);
         console.log(urlPart);
         this.performSearch(urlPart)
-        //return urlPart;
-        /*fetch("http://192.168.160.73:8080/api/search", {
-            method: 'POST',
-            body: data,
-        });*/
     }
 
     handleChange(event) {
