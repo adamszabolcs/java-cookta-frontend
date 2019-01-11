@@ -12,7 +12,7 @@ export class Recipes extends Component {
 
         return (
             <div>
-                {this.props.map(recipe =>
+                {this.props.recipes.map(recipe =>
                     <Recipe
                         key={recipe.label}
                         label={recipe.label}

@@ -45,20 +45,21 @@ class App extends Component {
     componentDidMount() {
         this.setState({isLoading: true});
 
-        //this.performSearch();
+        this.performSearch();
 
-        fetch("http://localhost:8080/api/")
+        /*fetch("http://localhost:8080/api/")
             .then(response => response.json())
-            .then(data => this.setState({hits: data, isLoading: false}));
+            .then(data => this.setState({hits: data, isLoading: false}));*/
     }
 
-     performSearch = (query = false) => {
+     performSearch = (query = '') => {
         let passed = "";
-        if(query){
-            let searchy = this.handleSubmit();
-            passed = "search/" + searchy;
+        if(query !== ''){
+            //let searchy = this.handleSubmit();
+            passed = "search/" + query;
         }
-        fetch("http://localhost:8080/api/"+passed)
+         console.log(passed);
+         fetch("http://localhost:8080/api/"+passed)
             .then(response => response.json())
             .then(responseData => {this.setState({hits: responseData, isLoading: false
             });
@@ -124,7 +125,8 @@ class App extends Component {
         }
         urlPart = urlPart.substring(0, urlPart.length -1);
         console.log(urlPart);
-
+        this.performSearch(urlPart)
+        //return urlPart;
         /*fetch("http://192.168.160.73:8080/api/search", {
             method: 'POST',
             body: data,
