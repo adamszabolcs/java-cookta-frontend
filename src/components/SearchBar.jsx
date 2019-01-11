@@ -23,7 +23,9 @@ export class SearchBar extends Component {
                                 <div className="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                                     <label htmlFor="inputCity">Search for recipe</label>
                                     <input name="q" type="text" className="form-control" id="inputCity"
-                                           placeholder="Search for recipe..." defaultValue={this.props.searchprase} />
+                                           placeholder="Search for recipe..."
+                                           defaultValue={this.props.searchprase}
+                                           onChange={this.props.searchValueChange}/>
                                 </div>
                             </div>
                             <FilterBar

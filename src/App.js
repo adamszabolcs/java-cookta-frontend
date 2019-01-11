@@ -18,6 +18,7 @@ class App extends Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         //this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
         this.state = {
             checkboxes: HEALTH_FILTER.reduce(
@@ -65,18 +66,9 @@ class App extends Component {
                 [name]: !prevState.checkboxes2[name]
             }
         }));
-        this.logChecked()
     };
 
-    logChecked(){
-        console.log(this.state.checkboxes)
-    }
-    /*handleCheckboxChange = name =>{
-        console.log(name);
-        console.log("lol");
-    }
-
-
+    /*
     handleFormSubmit = formSubmitEvent => {
         formSubmitEvent.preventDefault();
 
@@ -106,9 +98,9 @@ class App extends Component {
         });
     }
 
-    /*handleChange(event) {
+    handleChange(event) {
         this.setState({searchprase: event.target.value});
-    }*/
+    }
 
 
    /* performSearch = (query = false) => {
@@ -130,14 +122,14 @@ class App extends Component {
 
     render() {
         const { hits, isLoading } = this.state;
-        //{console.log(hits)}
+
         return (
             <div className="App">
                 <Navbar/>
                 <SearchBar
                     searchprase={this.state.searchprase}
                     onSubmit={this.handleSubmit}
-                    /*onChange={this.handleChange}*/
+                    searchValueChange={this.handleChange}
                     checkboxes={this.state.checkboxes}
                     checkboxes2={this.state.checkboxes2}
                     handleCheckBoxChange={this.handleCheckboxChange}
