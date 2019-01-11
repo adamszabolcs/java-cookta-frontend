@@ -12,13 +12,13 @@ export class Recipes extends Component {
 
         return (
             <div>
-                {this.props.recipes.map(recipe =>
+                {this.props.map(recipe =>
                     <Recipe
-                        key={recipe.recipe.label}
-                        label={recipe.recipe.label}
-                        image={recipe.recipe.image}
-                        ingredientLines={recipe.recipe.ingredientLines}
-                        url={recipe.recipe.url}
+                        key={recipe.label}
+                        label={recipe.label}
+                        image={recipe.image}
+                        ingredientLines={recipe.ingredientLines}
+                        url={recipe.url}
                     />
                 )}
             </div>

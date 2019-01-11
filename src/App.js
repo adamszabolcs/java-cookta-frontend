@@ -21,14 +21,14 @@ class App extends Component {
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
-            diet: HEALTH_FILTER.reduce(
+            health: HEALTH_FILTER.reduce(
                 (options, option) => ({
                     ...options,
                     [option]: false
                 }),
                 {}
             ),
-            health: DIET_FILTERS.reduce(
+            diet: DIET_FILTERS.reduce(
                 (options, option) => ({
                     ...options,
                     [option]: false
@@ -47,9 +47,9 @@ class App extends Component {
 
         //this.performSearch();
 
-        fetch("https://api.edamam.com/search?q=chicken&app_id=5b5897f7&app_key=9ac6d44f07118d8a2bead5a790b270d5&from=0&to=10&calories=591-722&health=alcohol-free")
+        fetch("http://localhost:8080/api/")
             .then(response => response.json())
-            .then(data => this.setState({hits: data.hits, isLoading: false}));
+            .then(data => this.setState({hits: data, isLoading: false}));
     }
 
      performSearch = (query = false) => {
@@ -58,7 +58,7 @@ class App extends Component {
             let searchy = this.handleSubmit();
             passed = "search/" + searchy;
         }
-        fetch("http://192.168.160.73:8080/api/"+passed)
+        fetch("http://localhost:8080/api/"+passed)
             .then(response => response.json())
             .then(responseData => {this.setState({hits: responseData, isLoading: false
             });
@@ -111,18 +111,18 @@ class App extends Component {
         let health = this.state.health;
 
         for(let d in diet){
-            console.log(d);
-            if(diet[d] && d in DIET_FILTERS){
+            //console.log(d);
+            if(diet[d] && DIET_FILTERS.indexOf(d) > -1){
                 urlPart += "diet" + "=" + d.toLowerCase()+"&"
             }
         }
 
         for(let h in health){
-            if(health[h] && h in HEALTH_FILTER){
-                urlPart += "health" + "=" + h.toLowerCase()+"&"
+            if(health[h] && HEALTH_FILTER.indexOf(h) > -1){
+                urlPart += "health" + "=" + h.toLowerCase()+"-free"+"&"
             }
         }
-
+        urlPart = urlPart.substring(0, urlPart.length -1);
         console.log(urlPart);
 
         /*fetch("http://192.168.160.73:8080/api/search", {
