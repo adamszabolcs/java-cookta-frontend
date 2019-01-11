@@ -7,7 +7,7 @@ import {Featured} from "./components/Featured";
 import {Recipes} from "./components/Recipes";
 
 
-const HEALTH_FILTER = ["Gluten", "Soy", "Peanuts", "Fish", "Dairy", "Shellfish", "Eggs", "Tree Nuts", "Wheat"];
+const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
 const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
 
 class App extends Component {
@@ -58,11 +58,12 @@ class App extends Component {
             passed = "search/" + query;
         }
          console.log(passed);
-         fetch("http://localhost:8080/api/"+passed)
+         fetch("http://192.168.160.73:8080/api/"+passed)
             .then(response => response.json())
             .then(responseData => {this.setState({hits: responseData, isLoading: false
             });
             })
+             //return;
             .catch(error => {
                 console.log('Error fetching and parsing data', error);
             });
@@ -93,17 +94,17 @@ class App extends Component {
         let diet = this.state.diet;
         let health = this.state.health;
 
+        for(let h in health){
+            if(health[h] && HEALTH_FILTER.indexOf(h) > -1){
+                urlPart += "health" + "=" + h.toLowerCase()+"-free"+"&"
+            }
+        }
         for(let d in diet){
             //console.log(d);
             if(diet[d] && DIET_FILTERS.indexOf(d) > -1){
                 urlPart += "diet" + "=" + d.toLowerCase()+"&"
             }
-        }
 
-        for(let h in health){
-            if(health[h] && HEALTH_FILTER.indexOf(h) > -1){
-                urlPart += "health" + "=" + h.toLowerCase()+"-free"+"&"
-            }
         }
         urlPart = urlPart.substring(0, urlPart.length -1);
         console.log(urlPart);
@@ -124,7 +125,6 @@ class App extends Component {
 
         return (
             <div className="App">
-                <Navbar/>
                 <SearchBar
                     searchprase={this.state.searchprase}
                     onSubmit={this.handleSubmit}
