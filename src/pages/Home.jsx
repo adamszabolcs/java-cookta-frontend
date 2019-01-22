@@ -48,6 +48,7 @@ class Home extends Component {
     }
 
     performSearch = (query = '') => {
+        this.setState({isLoading: true});
         let passed = "";
         if (query !== '') {
             passed = "search/" + query;
