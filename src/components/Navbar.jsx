@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export class Navbar extends Component {
 
@@ -14,8 +15,8 @@ export class Navbar extends Component {
                     {(!this.props.isLogin) ?
                     <div>
                         <ul className="navbar-nav">
-                            <li className="nav-item active">
-                                <a className="nav-link" href="#">Register<span
+                            <li className="nav-item">
+                                <a className="nav-link" href="/registration">Register<span
                                     className="sr-only">(current)</span></a>
                             </li>
                             <li className="nav-item">
@@ -28,6 +29,7 @@ export class Navbar extends Component {
                         <input type="text" name="username" placeholder="username" className="form-control m-2"/>
                         <input type="text" name="password" placeholder="password" className="form-control m-2"/>
                         <button type="submit" value="Login" className="btn btn-primary m-2">Login</button>
+                        <a className="nav-link text-white" onClick={() => this.props.hideLoginField()}><FontAwesomeIcon icon="undo"/></a>
                     </div>}
                 </div>
             </nav>

@@ -19,6 +19,7 @@ class Home extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.showLoginField = this.showLoginField.bind(this);
+        this.hideLoginField = this.hideLoginField.bind(this);
 
         this.state = {
             health: HEALTH_FILTER.reduce(
@@ -121,6 +122,10 @@ class Home extends Component {
         this.setState({isLogin:true})
     }
 
+    hideLoginField() {
+        this.setState({isLogin:false})
+    }
+
 
     render() {
         const {hits, isLoading, diet, health, searchprase, isLogin} = this.state;
@@ -130,6 +135,7 @@ class Home extends Component {
                 <Navbar
                     isLogin={isLogin}
                     showLoginField={this.showLoginField}
+                    hideLoginField={this.hideLoginField}
                 />
 
                 <SearchBar

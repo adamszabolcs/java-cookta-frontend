@@ -5,6 +5,9 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Home from "./pages/Home";
 import Registration from "./pages/Registration";
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {faUndo} from '@fortawesome/free-solid-svg-icons'
+library.add(faUndo);
 
 // const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
 // const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
