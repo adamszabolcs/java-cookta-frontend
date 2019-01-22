@@ -10,17 +10,24 @@ export class Navbar extends Component {
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="collapse navbar-collapse justify-content-md-center">
-                    <ul className="navbar-nav">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#">Centered nav only <span
-                                className="sr-only">(current)</span></a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Link</a>
-                        </li>
-                    </ul>
-                </div>
+                {(!this.props.isLogin) ?
+                    <div className="collapse navbar-collapse justify-content-md-center">
+                        <ul className="navbar-nav">
+                            <li className="nav-item active">
+                                <a className="nav-link" href="#">Register<span
+                                    className="sr-only">(current)</span></a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#" onClick={() => this.props.showLoginField()}>Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                    :
+                    <div className="loginfield">
+                        <input type="text" name="username" placeholder="username"/>
+                        <input type="text" name="password" placeholder="password"/>
+                        <button type="submit" value="Login"/>
+                    </div>}
             </nav>
         )
     }

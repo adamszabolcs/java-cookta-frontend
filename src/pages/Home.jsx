@@ -4,6 +4,7 @@ import '../templatemo-style.css';
 import {SearchBar} from "../components/SearchBar";
 import {Recipes} from "../components/Recipes";
 import {Featured} from "../components/Featured";
+import {Navbar} from "../components/Navbar";
 
 
 const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
@@ -17,6 +18,7 @@ class Home extends Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.showLoginField = this.showLoginField.bind(this);
 
         this.state = {
             health: HEALTH_FILTER.reduce(
@@ -35,7 +37,8 @@ class Home extends Component {
             ),
             hits: [],
             isLoading: false,
-            searchprase: ""
+            searchprase: "",
+            isLogin: false
         };
     }
 
@@ -114,12 +117,21 @@ class Home extends Component {
         this.setState({searchprase: event.target.value});
     }
 
+    showLoginField() {
+        this.setState({isLogin:true})
+    }
+
 
     render() {
-        const {hits, isLoading, diet, health, searchprase} = this.state;
+        const {hits, isLoading, diet, health, searchprase, isLogin} = this.state;
 
         return (
             <div className="App">
+                <Navbar
+                    isLogin={isLogin}
+                    showLoginField={this.showLoginField}
+                />
+
                 <SearchBar
                     searchprase={searchprase}
                     onSubmit={this.handleSubmit}
