@@ -8,9 +8,11 @@ export class Recipes extends Component {
 
         if (this.props.isLoading) {
             return <p>Loading ...</p>;
+        } else if (this.props.recipes.length === 0) {
+            return <h1>Sorry, no search results!</h1>;
         }
-
         return (
+
             <div>
                 {this.props.recipes.map(recipe =>
                     <Recipe
@@ -24,4 +26,5 @@ export class Recipes extends Component {
             </div>
         )
     }
+
 }
