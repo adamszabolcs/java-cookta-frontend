@@ -19,6 +19,9 @@ class Home extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.showLoginField = this.showLoginField.bind(this);
+        this.hideLoginField = this.hideLoginField.bind(this);
+        this.handleUsernameInput = this.handleUsernameInput.bind(this);
+        this.handlePasswordInput = this.handlePasswordInput.bind(this);
 
         this.state = {
             health: HEALTH_FILTER.reduce(
@@ -38,7 +41,9 @@ class Home extends Component {
             hits: [],
             isLoading: false,
             searchprase: "",
-            isLogin: false
+            isLogin: false,
+            username: "",
+            password: ""
         };
     }
 
@@ -121,15 +126,34 @@ class Home extends Component {
         this.setState({isLogin:true})
     }
 
+    hideLoginField() {
+        this.setState({isLogin:false})
+    }
+
+    handleUsernameInput(event) {
+        this.setState({username: event.target.value});
+        console.log(this.state.username)
+    }
+
+    handlePasswordInput(event) {
+        this.setState({password: event.target.value});
+        console.log(this.state.password)
+    }
+
 
     render() {
-        const {hits, isLoading, diet, health, searchprase, isLogin} = this.state;
+        const {hits, isLoading, diet, health, searchprase, isLogin, username, password} = this.state;
 
         return (
             <div className="App">
                 <Navbar
                     isLogin={isLogin}
                     showLoginField={this.showLoginField}
+                    hideLoginField={this.hideLoginField}
+                    username={username}
+                    password={password}
+                    handleUsernameInput={this.handleUsernameInput}
+                    handlePasswordInput={this.handlePasswordInput}
                 />
 
                 <SearchBar

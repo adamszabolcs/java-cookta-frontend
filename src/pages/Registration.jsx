@@ -13,6 +13,7 @@ const formValid = formErrors => {
     Object.values(formErrors).forEach( value => {
         value.length > 0 && (valid = false);
     });
+    console.log(Object.values(formErrors));
 };
 
 export default class Registration extends Component {
@@ -53,7 +54,9 @@ export default class Registration extends Component {
 
     }
 
-    handlChange = e => {
+    handleChange = e => {
+        e.preventDefault();
+
         const {name, value} = e.target;
         let newUser = this.state.newUser;
 
