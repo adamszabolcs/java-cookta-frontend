@@ -53,14 +53,15 @@ class App extends Component {
             passed = "search/" + query;
         }
          console.log(passed);
-         fetch("http://192.168.160.73:8080/api/"+passed)
+         fetch("http://localhost:8080/api/"+passed)
             .then(response => response.json())
             .then(responseData => {this.setState({hits: responseData, isLoading: false
             });
             })
              //return;
             .catch(error => {
-                console.log('Error fetching and parsing data', error);
+                this.setState({hits: []});
+                console.log('Error fetching and parsing data: ', error);
             });
     }
 
