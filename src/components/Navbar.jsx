@@ -13,7 +13,6 @@ export class Navbar extends Component {
 
                 <div className="collapse navbar-collapse justify-content-md-center">
                     {(!this.props.isLogin) ?
-                    <div>
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <a className="nav-link" href="/registration">Register<span
@@ -23,14 +22,13 @@ export class Navbar extends Component {
                                 <a className="nav-link" href="#" onClick={() => this.props.showLoginField()}>Login</a>
                             </li>
                         </ul>
-                    </div>
                     :
-                    <div className="input-group-prepend">
-                        <input type="text" name="username" placeholder="username" className="form-control m-2"/>
-                        <input type="text" name="password" placeholder="password" className="form-control m-2"/>
+                    <form className="input-group-prepend">
+                        <input type="text" name="username" placeholder="username" className="form-control m-2" defaultValue={this.props.username} onChange={this.props.handleUsernameInput}/>
+                        <input type="text" name="password" placeholder="password" className="form-control m-2" defaultValue={this.props.password} onChange={this.props.handlePasswordInput}/>
                         <button type="submit" value="Login" className="btn btn-primary m-2">Login</button>
                         <a className="nav-link text-white" onClick={() => this.props.hideLoginField()}><FontAwesomeIcon icon="undo"/></a>
-                    </div>}
+                    </form>}
                 </div>
             </nav>
         )
