@@ -3,17 +3,22 @@ import '../App.css';
 import '../templatemo-style.css';
 import '../registration.css';
 
-const emailRegex = RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+const emailRegex = RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
-const formValid = formErrors => {
+const formValid = ({formErrors, ...rest}) => {
     let valid = true;
 
-
     //if any of the formErrors values length is greater than zero, change valid to false.
-    Object.values(formErrors).forEach( value => {
+    Object.values(formErrors).forEach(value => {
         value.length > 0 && (valid = false);
     });
-    console.log(Object.values(formErrors));
+
+    //checks every value of the rest of the object
+    Object.values(rest).forEach(value => {
+        value === null && (valid = false);
+    });
+
+    return valid;
 };
 
 export default class Registration extends Component {
@@ -22,12 +27,9 @@ export default class Registration extends Component {
         super(props);
 
         this.state = {
-            isLoading: false,
-            newUser: {
-                userName: "",
-                userPassword: "",
-                userEmail: ""
-            },
+            userName: null,
+            userPassword: null,
+            userEmail: null,
             formErrors: {
                 userName: "",
                 userPassword: "",
@@ -40,34 +42,51 @@ export default class Registration extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        if (this.state.formErrors) {
+        if (formValid(this.state)) {
             console.log(
                 `
                 SUBMITTING
-                Username: ${this.state.newUser.userName}
-                Email: ${this.state.newUser.userEmail}
-                Password: ${this.state.newUser.userPassword}
+                Username: ${this.state.userName}
+                Email: ${this.state.userEmail}
+                Password: ${this.state.userPassword}
                 `);
         } else {
             console.error("FORM INVALID");
+            alert("Please fill out the form");
         }
 
-    }
+    };
 
+
+    //TODO double check password
     handleChange = e => {
         e.preventDefault();
 
         const {name, value} = e.target;
-        let newUser = this.state.newUser;
-
+        let formErrors = this.state.formErrors;
 
         switch (name) {
             case 'userName':
-                newUser.userName = value.length
+                formErrors.userName = value.length < 4 ? 'minimum 4 characters required' : "";
+                break;
+            case 'userEmail':
+                formErrors.userEmail =
+                    emailRegex.test(value) ? '' : 'invalid email address';
+                break;
+
+            case 'password':
+                formErrors.userPassword = value.length < 6 ? 'minimum 6 characters required' : "";
+                break;
+            default:
+                break;
         }
-    }
+
+        this.setState({formErrors, [name]: value}, () => console.log(formErrors));
+    };
 
     render() {
+        const {formErrors} = this.state;
+
         return (
             <div className="wrapper tm-container-outer tm-banner-bg">
                 <div className="form-wrapper">
@@ -76,36 +95,45 @@ export default class Registration extends Component {
                         <div className="userName">
                             <label htmlFor="userName" className="regLabel">Enter a username</label>
                             <input type="text"
-                                   className="regInput"
+                                   className={formErrors.userName.length > 0 ? "error" : null}
                                    placeholder="Username"
                                    name="userName"
                                    onChange={this.handleChange}
                                    noValidate/>
                         </div>
+                        {formErrors.userName.length > 0 && (
+                            <span className='errorMessage'>{formErrors.userName}</span>
+                        )
+                        }
                         <div className="email">
                             <label htmlFor="email" className="regLabel">Email</label>
                             <input type="email"
-                                   className="regInput"
+                                   className={formErrors.userEmail.length > 0 ? "error" : null}
                                    placeholder="Email"
-                                   name="email"
+                                   name="userEmail"
                                    onChange={this.handleChange}
                                    noValidate/>
                         </div>
+                        {formErrors.userEmail.length > 0 && (
+                            <span className="errorMessage">{formErrors.userEmail}</span>
+                        )}
                         <div className="password">
                             <label htmlFor="password" className="regLabel">Password</label>
                             <input type="password"
-                                   className="regInput"
+                                   className={formErrors.userPassword.length > 0 ? "error" : null}
                                    placeholder="Password"
-                                   name="password"
+                                   name="userPassword"
                                    onChange={this.handleChange}
                                    noValidate/>
                         </div>
+                        {formErrors.userPassword.length > 0 && (
+                            <span className="errorMessage">{formErrors.userPassword}</span>
+                        )}
                         <div className="createAccount">
                             <button type="submit">Create account</button>
                             <small>Already have an account?</small>
                         </div>
                     </form>
-
                 </div>
 
             </div>
