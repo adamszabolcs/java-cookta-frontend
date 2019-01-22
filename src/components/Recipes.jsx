@@ -8,23 +8,24 @@ export class Recipes extends Component {
 
         if (this.props.isLoading) {
             return <p>Loading ...</p>;
-        } else if (this.props.recipes.length === 0) {
+        } else if (this.props.recipes.length === 0 && !this.props.isLoading) {
             return <h1>Sorry, no search results!</h1>;
-        }
-        return (
+        } else {
+            return (
 
-            <div>
-                {this.props.recipes.map(recipe =>
-                    <Recipe
-                        key={recipe.label}
-                        label={recipe.label}
-                        image={recipe.image}
-                        ingredientLines={recipe.ingredientLines}
-                        url={recipe.url}
-                    />
-                )}
-            </div>
-        )
+                <div>
+                    {this.props.recipes.map(recipe =>
+                        <Recipe
+                            key={recipe.label}
+                            label={recipe.label}
+                            image={recipe.image}
+                            ingredientLines={recipe.ingredientLines}
+                            url={recipe.url}
+                        />
+                    )}
+                </div>
+            )
+        }
     }
 
 }
