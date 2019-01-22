@@ -10,8 +10,9 @@ export class Navbar extends Component {
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                {(!this.props.isLogin) ?
-                    <div className="collapse navbar-collapse justify-content-md-center">
+                <div className="collapse navbar-collapse justify-content-md-center">
+                    {(!this.props.isLogin) ?
+                    <div>
                         <ul className="navbar-nav">
                             <li className="nav-item active">
                                 <a className="nav-link" href="#">Register<span
@@ -23,11 +24,12 @@ export class Navbar extends Component {
                         </ul>
                     </div>
                     :
-                    <div className="loginfield">
-                        <input type="text" name="username" placeholder="username"/>
-                        <input type="text" name="password" placeholder="password"/>
-                        <button type="submit" value="Login"/>
+                    <div className="input-group-prepend">
+                        <input type="text" name="username" placeholder="username" className="form-control m-2"/>
+                        <input type="text" name="password" placeholder="password" className="form-control m-2"/>
+                        <button type="submit" value="Login" className="btn btn-primary m-2">Login</button>
                     </div>}
+                </div>
             </nav>
         )
     }
