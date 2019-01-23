@@ -74,7 +74,7 @@ export default class Registration extends Component {
                     emailRegex.test(value) ? '' : 'invalid email address';
                 break;
 
-            case 'password':
+            case 'userPassword':
                 formErrors.userPassword = value.length < 6 ? 'minimum 6 characters required' : "";
                 break;
             default:
