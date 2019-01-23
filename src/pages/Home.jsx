@@ -43,11 +43,12 @@ class Home extends Component {
             hits: [],
             isLoading: false,
             searchprase: "",
-            isLogin: false,
+            isLoginVisible: false,
             username: "",
             password: "",
-            userLogin: {},
-            wrongCredentials: false
+            userData: {},
+            wrongCredentials: false,
+            isLoggedIn: false
         };
     }
 
@@ -58,6 +59,11 @@ class Home extends Component {
         this.performSearch();
 
         this.checkIfRefered();
+
+        if(localStorage.getItem("userData") !== null) {
+            this.setState({userData: JSON.parse(localStorage.getItem("userData"))});
+            this.setState({isLoggedIn: true})
+        }
     }
 
     performSearch = (query = '') => {
@@ -128,11 +134,11 @@ class Home extends Component {
     }
 
     showLoginField() {
-        this.setState({isLogin:true})
+        this.setState({isLoginVisible:true})
     }
 
     hideLoginField() {
-        this.setState({isLogin:false})
+        this.setState({isLoginVisible:false})
     }
 
     handleUsernameInput(event) {
@@ -158,11 +164,14 @@ class Home extends Component {
         }).then(res => res.json())
             .then(responseData => {
                 this.setState({
-                    userLogin: responseData,
+                    userData: responseData,
                     wrongCredentials: false,
+                    password: "",
+                    isLoggedIn: true
                 });
+                localStorage.setItem("userData", JSON.stringify(responseData))
             })
-            .then(() => console.log('Success:', JSON.stringify(this.state.userLogin)))
+            .then(() => console.log('Success:', JSON.stringify(this.state.userData)))
             .catch(error => {
                 this.setState({wrongCredentials : true});
                 console.log('Error fetching and parsing data: ', error);
@@ -178,12 +187,12 @@ class Home extends Component {
 
 
     render() {
-        const {hits, isLoading, diet, health, searchprase, isLogin, username, password} = this.state;
+        const {hits, isLoading, diet, health, searchprase, isLoginVisible, username, password, isLoggedIn, userData} = this.state;
 
         return (
             <div className="App">
                 <Navbar
-                    isLogin={isLogin}
+                    isLoginVisible={isLoginVisible}
                     showLoginField={this.showLoginField}
                     hideLoginField={this.hideLoginField}
                     username={username}
@@ -191,6 +200,8 @@ class Home extends Component {
                     handleUsernameInput={this.handleUsernameInput}
                     handlePasswordInput={this.handlePasswordInput}
                     submitLogin={this.submitLogin}
+                    isLoggedIn={isLoggedIn}
+                    userData={userData}
                 />
 
                 {(this.state.wrongCredentials) ?

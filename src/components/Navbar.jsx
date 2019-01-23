@@ -10,9 +10,9 @@ export class Navbar extends Component {
                         aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-
+                { (!this.props.isLoggedIn) ?
                 <div className="collapse navbar-collapse justify-content-md-center">
-                    {(!this.props.isLogin) ?
+                    {(!this.props.isLoginVisible) ?
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <a className="nav-link" href="/registration">Register<span
@@ -30,6 +30,11 @@ export class Navbar extends Component {
                         <a className="nav-link text-white" onClick={() => this.props.hideLoginField()}><FontAwesomeIcon icon="undo"/></a>
                     </form>}
                 </div>
+                    :
+                    <div  className="collapse navbar-collapse justify-content-md-center">
+                        <p id="username">{this.props.userData.username}</p>
+                    </div>
+                }
             </nav>
         )
     }
