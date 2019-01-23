@@ -60,9 +60,32 @@ class Home extends Component {
 
         this.checkIfRefered();
 
-        if(localStorage.getItem("userData") !== null) {
+        if (localStorage.getItem("userData") !== null) {
             this.setState({userData: JSON.parse(localStorage.getItem("userData"))});
-            this.setState({isLoggedIn: true})
+            this.setState({isLoggedIn: true});
+            this.setState({diet: JSON.parse(localStorage.getItem("diet"))})
+        }
+    }
+
+
+    setIntolerance() {
+        //console.log(this.state.userData);
+        for (let userDiet in this.state.userData.diet) {
+            if (this.state.userData.diet.hasOwnProperty(userDiet)) {
+                let machingKey = userDiet.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+                for (let dietKey in this.state.diet) {
+                    if (this.state.diet.hasOwnProperty(dietKey)) {
+                        if (machingKey === dietKey.toLowerCase()) {
+                            this.setState({
+                                diet: {
+                                    ...this.state.diet,
+                                    [dietKey]: this.state.userData.diet[userDiet]
+                                }
+                            })
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -89,16 +112,21 @@ class Home extends Component {
 
     handleCheckboxChange = name => {
 
-        this.setState(prevState => ({
-            diet: {
-                ...prevState.diet,
-                [name]: !prevState.diet[name]
-            },
-            health: {
-                ...prevState.health,
-                [name]: !prevState.health[name]
-            }
-        }));
+        if (name in this.state.diet) {
+            this.setState(prevState => ({
+                diet: {
+                    ...prevState.diet,
+                    [name]: !prevState.diet[name]
+                },
+            }));
+        }else {
+            this.setState(prevState => ({
+                health: {
+                    ...prevState.health,
+                    [name]: !prevState.health[name]
+                }
+            }));
+        }
 
     };
 
@@ -134,11 +162,11 @@ class Home extends Component {
     }
 
     showLoginField() {
-        this.setState({isLoginVisible:true})
+        this.setState({isLoginVisible: true})
     }
 
     hideLoginField() {
-        this.setState({isLoginVisible:false})
+        this.setState({isLoginVisible: false})
     }
 
     handleUsernameInput(event) {
@@ -157,7 +185,7 @@ class Home extends Component {
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
-            headers:{
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
@@ -171,9 +199,11 @@ class Home extends Component {
                 });
                 localStorage.setItem("userData", JSON.stringify(responseData))
             })
+            .then(() => this.setIntolerance())
+            .then(() => localStorage.setItem("diet", JSON.stringify(this.state.diet)))
             .then(() => console.log('Success:', JSON.stringify(this.state.userData)))
             .catch(error => {
-                this.setState({wrongCredentials : true});
+                this.setState({wrongCredentials: true});
                 console.log('Error fetching and parsing data: ', error);
             });
     }

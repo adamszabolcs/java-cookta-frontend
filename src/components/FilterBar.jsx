@@ -26,7 +26,7 @@ export class FilterBar extends Component {
         />
     );
 
-    createCheckboxes = () => HEALTH_FILTER.map(this.createCheckbox);
+   createCheckboxes = () => HEALTH_FILTER.map(this.createCheckbox);
     createCheckboxes2 = () => DIET_FILTERS.map(this.createCheckbox2);
 
     render() {
