@@ -28,12 +28,14 @@ export default class Registration extends Component {
 
         this.state = {
             userName: null,
-            userPassword: null,
             userEmail: null,
+            userPassword: null,
+            userPassword2: null,
             formErrors: {
                 userName: "",
+                userEmail: "",
                 userPassword: "",
-                userEmail: ""
+                userPassword2: ""
             }
         };
 
@@ -49,6 +51,7 @@ export default class Registration extends Component {
                 Username: ${this.state.userName}
                 Email: ${this.state.userEmail}
                 Password: ${this.state.userPassword}
+                Password2: ${this.state.userPassword}
                 `);
         } else {
             console.error("FORM INVALID");
@@ -77,11 +80,15 @@ export default class Registration extends Component {
             case 'userPassword':
                 formErrors.userPassword = value.length < 6 ? 'minimum 6 characters required' : "";
                 break;
+
+            case 'userPassword2':
+                formErrors.userPassword2 = value !== this.state.userPassword ? "password doesn't match" : "";
+                break;
             default:
                 break;
         }
 
-        this.setState({formErrors, [name]: value}, () => console.log(formErrors));
+        this.setState({formErrors, [name]: value}, () => console.log(this.state));
     };
 
     render() {
@@ -128,6 +135,18 @@ export default class Registration extends Component {
                         </div>
                         {formErrors.userPassword.length > 0 && (
                             <span className="errorMessage">{formErrors.userPassword}</span>
+                        )}
+                        <div className="password">
+                            <label htmlFor="password" className="regLabel">Password</label>
+                            <input type="password"
+                                   className={formErrors.userPassword2.length > 0 ? "error" : null}
+                                   placeholder="Password again"
+                                   name="userPassword2"
+                                   onChange={this.handleChange}
+                                   noValidate/>
+                        </div>
+                        {formErrors.userPassword2.length > 0 && (
+                            <span className="errorMessage">{formErrors.userPassword2}</span>
                         )}
                         <div className="createAccount">
                             <button type="submit">Create account</button>
