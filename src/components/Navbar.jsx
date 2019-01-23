@@ -23,7 +23,7 @@ export class Navbar extends Component {
                             </li>
                         </ul>
                     :
-                    <form className="input-group-prepend">
+                    <form className="input-group-prepend" onSubmit={this.props.submitLogin} method="POST">
                         <input type="text" name="username" placeholder="username" className="form-control m-2" defaultValue={this.props.username} onChange={this.props.handleUsernameInput}/>
                         <input type="text" name="password" placeholder="password" className="form-control m-2" defaultValue={this.props.password} onChange={this.props.handlePasswordInput}/>
                         <button type="submit" value="Login" className="btn btn-primary m-2">Login</button>
