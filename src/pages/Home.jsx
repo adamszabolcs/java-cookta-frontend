@@ -45,7 +45,9 @@ class Home extends Component {
             searchprase: "",
             isLogin: false,
             username: "",
-            password: ""
+            password: "",
+            userLogin: {},
+            wrongCredentials: false
         };
     }
 
@@ -142,21 +144,29 @@ class Home extends Component {
     }
 
     submitLogin(event) {
-        console.log("he");
         event.preventDefault();
-        let url = 'http://10.0.2.15:8080/cookta/login';
+        let url = 'http://localhost:8080/cookta/login';
         let data = {username: this.state.username, password: this.state.password};
 
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
             headers:{
+                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-            .then(response => console.log('Success:', JSON.stringify(response)))
-            .catch(error => console.error('Error:', error));
-
+            .then(responseData => {
+                this.setState({
+                    userLogin: responseData,
+                    wrongCredentials: false,
+                });
+            })
+            .then(() => console.log('Success:', JSON.stringify(this.state.userLogin)))
+            .catch(error => {
+                this.setState({wrongCredentials : true});
+                console.log('Error fetching and parsing data: ', error);
+            });
     }
 
     checkIfRefered() {
@@ -182,6 +192,11 @@ class Home extends Component {
                     handlePasswordInput={this.handlePasswordInput}
                     submitLogin={this.submitLogin}
                 />
+
+                {(this.state.wrongCredentials) ?
+                    <p>Wrong Credentials</p> :
+                    <span></span>
+                }
 
                 <SearchBar
                     searchprase={searchprase}
