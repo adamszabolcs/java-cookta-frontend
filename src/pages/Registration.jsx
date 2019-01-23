@@ -3,7 +3,8 @@ import '../App.css';
 import '../templatemo-style.css';
 import '../registration.css';
 
-const emailRegex = RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+const apiRegUrl = "http://192.168.163.25:8080/api/register";
+const emailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
 const formValid = ({formErrors, ...rest}) => {
     let valid = true;
@@ -45,14 +46,26 @@ export default class Registration extends Component {
         e.preventDefault();
 
         if (formValid(this.state)) {
-            console.log(
-                `
-                SUBMITTING
-                Username: ${this.state.userName}
-                Email: ${this.state.userEmail}
-                Password: ${this.state.userPassword}
-                Password2: ${this.state.userPassword}
-                `);
+            // console.log(
+            //     `
+            //     SUBMITTING
+            //     Username: ${this.state.userName}
+            //     Email: ${this.state.userEmail}
+            //     Password: ${this.state.userPassword}
+            //     Password2: ${this.state.userPassword}
+            //     `);
+            fetch(apiRegUrl, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: this.state.userName,
+                    email: this.state.userEmail,
+                    password: this.state.userPassword
+                })
+            }).then(this.handleRedirect);
         } else {
             console.error("FORM INVALID");
             alert("Please fill out the form");
@@ -60,8 +73,17 @@ export default class Registration extends Component {
 
     };
 
+    handleRedirect = resp => {
+        console.log(resp);
+        if (resp.status === 200) {
+            console.log("form submit was successful");
+            window.location.pathname = "/";
+        } else {
+            alert("Username or email is already taken, full in the form again");
+        }
+    };
 
-    //TODO double check password
+
     handleChange = e => {
         e.preventDefault();
 
