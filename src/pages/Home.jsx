@@ -151,6 +151,7 @@ class Home extends Component {
             method: 'POST',
             body: JSON.stringify(data),
             headers:{
+                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
