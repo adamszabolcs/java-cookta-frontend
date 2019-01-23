@@ -23,6 +23,7 @@ class Home extends Component {
         this.handleUsernameInput = this.handleUsernameInput.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
 
+
         this.state = {
             health: HEALTH_FILTER.reduce(
                 (options, option) => ({
@@ -53,6 +54,7 @@ class Home extends Component {
 
         this.performSearch();
 
+        this.checkIfRefered();
     }
 
     performSearch = (query = '') => {
@@ -138,6 +140,13 @@ class Home extends Component {
     handlePasswordInput(event) {
         this.setState({password: event.target.value});
         console.log(this.state.password)
+    }
+
+    checkIfRefered() {
+        let windowLocation = window.location.href;
+        if (document.referrer === windowLocation.concat("registration")) {
+            this.showLoginField()
+        }
     }
 
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 import '../templatemo-style.css';
 import '../registration.css';
+import Home from "../pages/Home.jsx";
 
 const emailRegex = RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
@@ -131,7 +132,7 @@ export default class Registration extends Component {
                         )}
                         <div className="createAccount">
                             <button type="submit">Create account</button>
-                            <small>Already have an account?</small>
+                            <a href="/"><small>Already have an account? Login!</small></a>
                         </div>
                     </form>
                 </div>
