@@ -22,6 +22,8 @@ class Home extends Component {
         this.hideLoginField = this.hideLoginField.bind(this);
         this.handleUsernameInput = this.handleUsernameInput.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
+        this.submitLogin = this.submitLogin.bind(this);
+
 
         this.state = {
             health: HEALTH_FILTER.reduce(
@@ -53,6 +55,7 @@ class Home extends Component {
 
         this.performSearch();
 
+        this.checkIfRefered();
     }
 
     performSearch = (query = '') => {
@@ -73,7 +76,7 @@ class Home extends Component {
                 // this.setState({hits: []});
                 console.log('Error fetching and parsing data: ', error);
             });
-    }
+    };
 
 
     handleCheckboxChange = name => {
@@ -132,12 +135,36 @@ class Home extends Component {
 
     handleUsernameInput(event) {
         this.setState({username: event.target.value});
-        console.log(this.state.username)
     }
 
     handlePasswordInput(event) {
         this.setState({password: event.target.value});
-        console.log(this.state.password)
+    }
+
+    submitLogin(event) {
+        console.log("he");
+        event.preventDefault();
+        let url = 'http://10.0.2.15:8080/cookta/login';
+        let data = {username: this.state.username, password: this.state.password};
+
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(response => console.log('Success:', JSON.stringify(response)))
+            .catch(error => console.error('Error:', error));
+
+    }
+
+    checkIfRefered() {
+        let windowLocation = window.location.href;
+        if (document.referrer === windowLocation.concat("registration")) {
+            this.showLoginField()
+        }
     }
 
 
@@ -154,6 +181,7 @@ class Home extends Component {
                     password={password}
                     handleUsernameInput={this.handleUsernameInput}
                     handlePasswordInput={this.handlePasswordInput}
+                    submitLogin={this.submitLogin}
                 />
 
                 <SearchBar
