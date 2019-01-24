@@ -16,7 +16,7 @@ class Home extends Component {
         super(props);
         let basurl = "https://api.edamam.com/search?q=chicken&app_id=5b5897f7&app_key=9ac6d44f07118d8a2bead5a790b270d5&from=0&to=10&calories=591-722&health=alcohol-free"
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        /*this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.showLoginField = this.showLoginField.bind(this);
         this.hideLoginField = this.hideLoginField.bind(this);
@@ -50,11 +50,11 @@ class Home extends Component {
             userData: {},
             wrongCredentials: false,
             isLoggedIn: false
-        };
+        };*/
     }
 
 
-    componentDidMount() {
+    /*componentDidMount() {
         this.setState({isLoading: true});
 
         this.performSearch();
@@ -250,14 +250,14 @@ class Home extends Component {
             this.showLoginField()
         }
     }
+*/
 
-
-    render() {
-        const {hits, isLoading, diet, health, searchprase, isLoginVisible, username, password, isLoggedIn, userData} = this.state;
+    render(){
+       /* const {hits, isLoading, diet, health, searchprase, isLoginVisible, username, password, isLoggedIn, userData} = this.state;*/
 
         return (
             <div className="App">
-                <Navbar
+                {/*<Navbar
                     isLoginVisible={isLoginVisible}
                     showLoginField={this.showLoginField}
                     hideLoginField={this.hideLoginField}
@@ -269,25 +269,25 @@ class Home extends Component {
                     isLoggedIn={isLoggedIn}
                     userData={userData}
                     logoutUser={this.logout}
-                />
+                />*/}
 
-                {(this.state.wrongCredentials) ?
+                {(this.props.wrongCredentials) ?
                     <p>Wrong Credentials</p> :
                     <span></span>
                 }
 
                 <SearchBar
-                    searchprase={searchprase}
-                    onSubmit={this.handleSubmit}
-                    searchValueChange={this.handleChange}
-                    dietCheckboxes={diet}
-                    healthCheckboxes={health}
-                    handleCheckBoxChange={this.handleCheckboxChange}
+                    searchprase={this.props.searchprase}
+                    onSubmit={this.props.onSubmit}
+                    searchValueChange={this.props.searchValueChange}
+                    dietCheckboxes={this.props.dietCheckboxes}
+                    healthCheckboxes={this.props.healthCheckboxes}
+                    handleCheckBoxChange={this.props.handleCheckBoxChange}
                 />
                 <Featured/>
                 <Recipes
-                    recipes={hits}
-                    isLoading={isLoading}
+                    recipes={this.props.recipes}
+                    isLoading={this.props.isLoading}
                 />
             </div>
         );

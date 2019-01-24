@@ -3,7 +3,7 @@ import '../App.css';
 import '../templatemo-style.css';
 import '../registration.css';
 
-const apiRegUrl = "http://192.168.163.25:8080/api/register";
+const apiRegUrl = "http://localhost:8080/api/register";
 const emailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
 const formValid = ({formErrors, ...rest}) => {
