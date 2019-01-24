@@ -290,6 +290,8 @@ class App extends Component {
                             wrongCredentials={this.state.wrongCredentials}
                             recipes={this.state.hits}
                             isLoading={this.state.isLoading}
+                            isLoggedIn={this.state.isLoggedIn}
+                            username={this.state.username}
                             />
                         </div>
                     }/>

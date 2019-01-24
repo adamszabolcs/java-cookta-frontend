@@ -117,7 +117,7 @@ export default class Registration extends Component {
         const {formErrors} = this.state;
 
         return (
-            <div className="wrapper tm-container-outer tm-banner-bg">
+            <div className="regWrapper tm-container-outer tm-banner-bg">
                 <div className="form-wrapper">
                     <h1>Create an account</h1>
                     <form onSubmit={this.handleSubmit} noValidate>

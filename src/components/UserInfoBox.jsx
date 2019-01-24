@@ -13,6 +13,22 @@ export class UserInfoBox extends Component {
         }
     }
 
+    componentDidMount() {
+        this.setState({isLoading: true});
+
+        fetch("http://localhost:8080/" + this.props.username)
+            .then(response => response.json())
+            .then(responseData => {
+                this.setState({
+                    hits: responseData, isLoading: false
+                });
+            })
+            .catch(error => {
+                // this.setState({hits: []});
+                console.log('Error fetching and parsing data: ', error);
+            });
+    }
+
     render() {
 
         return (
@@ -42,7 +58,7 @@ export class UserInfoBox extends Component {
                 <br/>
                 <br/>
                 <br/>
-                <br/>
+
                 <Recipes
                     recipes={this.state.recipes}
                     isLoading={this.state.isLoading}
