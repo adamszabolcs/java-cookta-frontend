@@ -278,8 +278,8 @@ class Home extends Component {
                     searchprase={searchprase}
                     onSubmit={this.handleSubmit}
                     searchValueChange={this.handleChange}
-                    checkboxes={diet}
-                    checkboxes2={health}
+                    dietCheckboxes={diet}
+                    healthCheckboxes={health}
                     handleCheckBoxChange={this.handleCheckboxChange}
                 />
                 <Featured/>
