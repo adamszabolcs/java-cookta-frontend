@@ -22,6 +22,8 @@ export class Recipes extends Component {
                         image={recipe.image}
                         ingredientLines={recipe.ingredientLines}
                         url={recipe.url}
+                        isLoggedIn={this.props.isLoggedIn}
+                        username={this.props.username}
                     />
                 )}
             </div>

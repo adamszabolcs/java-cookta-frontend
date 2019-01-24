@@ -3,14 +3,43 @@ import '../templatemo-style.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faHeart as fasFaHeart} from "@fortawesome/free-solid-svg-icons";
 
-export default class Recipe extends Component {
+const apiUrl = "http://localhost:8080/api/add-favourite";
 
+export default class Recipe extends Component {
+    constructor(props) {
+        super(props);
+    }
 
 
     addFavourite = event => {
         event.target.parentElement.classList.add("added");
-        console.log(this.props.label);
-    };
+        console.log(this.props.username);
+        console.log(this.props.isLoggedIn);
+
+
+        let response = JSON.stringify({
+            user: this.props.username,
+            recipe: {
+                image: this.props.image,
+                label: this.props.label,
+                ingredientLines: this.props.ingredientLines,
+                url: this.props.url
+            }
+        })
+
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: response
+        })
+            .then(() => {
+                console.log("sended", response)
+            });
+    }
 
 
     render() {
@@ -20,7 +49,10 @@ export default class Recipe extends Component {
                     <div className="tm-recommended-place">
                         <div className="recipe-image">
                             <img src={this.props.image} alt=""/>
-                            <a  onClick={(event) => this.addFavourite(event)}><FontAwesomeIcon className="favourite-icon" icon={fasFaHeart}/></a>
+                            {(this.props.isLoggedIn) ?
+                                <a onClick={(event) => this.addFavourite(event)}>
+                                    <FontAwesomeIcon className="favourite-icon" icon={fasFaHeart}/></a> :
+                                <span></span>}
                         </div>
                         <div className="tm-recommended-description-box">
                             <h3 className="tm-recommended-title">{this.props.label}</h3>
