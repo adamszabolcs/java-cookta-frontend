@@ -23,6 +23,7 @@ class Home extends Component {
         this.handleUsernameInput = this.handleUsernameInput.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
         this.submitLogin = this.submitLogin.bind(this);
+        this.logout = this.logout.bind(this);
 
 
         this.state = {
@@ -43,9 +44,12 @@ class Home extends Component {
             hits: [],
             isLoading: false,
             searchprase: "",
-            isLogin: false,
+            isLoginVisible: false,
             username: "",
-            password: ""
+            password: "",
+            userData: {},
+            wrongCredentials: false,
+            isLoggedIn: false
         };
     }
 
@@ -56,7 +60,42 @@ class Home extends Component {
         this.performSearch();
 
         this.checkIfRefered();
+
+        if (localStorage.getItem("userData") !== null) {
+            this.setState({userData: JSON.parse(localStorage.getItem("userData"))});
+            this.setState({isLoggedIn: true});
+
+            this.setState({health: JSON.parse(localStorage.getItem("health"))});
+            this.setState({diet: JSON.parse(localStorage.getItem("diet"))});
+        }
     }
+
+
+    setUserIntolerances(userData, stateData) {
+        for (let userDiet in userData) {
+            let machingKey = userDiet.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+            for (let dietKey in stateData) {
+                if (machingKey === dietKey.toLowerCase()) {
+                    if (dietKey in this.state.diet) {
+                        this.setState({
+                            diet: {
+                                ...this.state.diet,
+                                [dietKey]: this.state.userData.diet[userDiet]
+                            }
+                        });
+                    } else {
+                        this.setState({
+                            health: {
+                                ...this.state.health,
+                                [dietKey]: this.state.userData.health[userDiet]
+                            }
+                        });
+                    }
+                }
+            }
+        }
+    }
+
 
     performSearch = (query = '') => {
         this.setState({isLoading: true});
@@ -81,17 +120,23 @@ class Home extends Component {
 
     handleCheckboxChange = name => {
 
-        this.setState(prevState => ({
-            diet: {
-                ...prevState.diet,
-                [name]: !prevState.diet[name]
-            },
-            health: {
-                ...prevState.health,
-                [name]: !prevState.health[name]
-            }
-        }));
+        if (name in this.state.diet) {
+            this.setState(prevState => ({
+                diet: {
+                    ...prevState.diet,
+                    [name]: !prevState.diet[name]
+                },
+            }));
+        }
 
+        if (name in this.state.health) {
+            this.setState(prevState => ({
+                health: {
+                    ...prevState.health,
+                    [name]: !prevState.health[name]
+                }
+            }));
+        }
     };
 
 
@@ -116,9 +161,6 @@ class Home extends Component {
         console.log(urlPart);
         this.performSearch(urlPart)
 
-        /*fetch("http://localhost:8080/api/search/" + urlPart)
-            .then(response => response.json())
-            .then(data => this.setState({hits: data, isLoading: false}));*/
     }
 
     handleChange(event) {
@@ -126,11 +168,11 @@ class Home extends Component {
     }
 
     showLoginField() {
-        this.setState({isLogin:true})
+        this.setState({isLoginVisible: true})
     }
 
     hideLoginField() {
-        this.setState({isLogin:false})
+        this.setState({isLoginVisible: false})
     }
 
     handleUsernameInput(event) {
@@ -142,9 +184,8 @@ class Home extends Component {
     }
 
     submitLogin(event) {
-        console.log("he");
         event.preventDefault();
-        let url = 'http://10.0.2.15:8080/cookta/login';
+        let url = 'http://localhost:8080/cookta/login';
         let data = {username: this.state.username, password: this.state.password};
 
         fetch(url, {
@@ -155,9 +196,52 @@ class Home extends Component {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-            .then(response => console.log('Success:', JSON.stringify(response)))
-            .catch(error => console.error('Error:', error));
+            .then(responseData => {
+                this.setState({
+                    userData: responseData,
+                    wrongCredentials: false,
+                    password: "",
+                    isLoggedIn: true
+                });
+                localStorage.setItem("userData", JSON.stringify(responseData))
+            })
+            .then(() => this.setUserIntolerances(this.state.userData.diet, this.state.diet))
+            .then(() => this.setUserIntolerances(this.state.userData.health, this.state.health))
+            //.then(() => this.setHealthCheckboxes())
+            .then(() => localStorage.setItem("diet", JSON.stringify(this.state.diet)))
+            .then(() => localStorage.setItem("health", JSON.stringify(this.state.health)))
+            .then(() => console.log('Success:', JSON.stringify(this.state.userData)))
+            .catch(error => {
+                this.setState({wrongCredentials: true});
+                console.log('Error fetching and parsing data: ', error);
+            });
+    }
 
+    logout() {
+        localStorage.removeItem("userData");
+        localStorage.removeItem("diet");
+        localStorage.removeItem("health");
+        this.setState({isLoggedIn: false});
+        this.resetCheckBoxes();
+    }
+
+    resetCheckBoxes(){
+        this.setState({
+            health: HEALTH_FILTER.reduce(
+                (options, option) => ({
+                    ...options,
+                    [option]: false
+                }),
+                {}
+            ),
+            diet: DIET_FILTERS.reduce(
+                (options, option) => ({
+                    ...options,
+                    [option]: false
+                }),
+                {}
+            )
+        });
     }
 
     checkIfRefered() {
@@ -169,12 +253,12 @@ class Home extends Component {
 
 
     render() {
-        const {hits, isLoading, diet, health, searchprase, isLogin, username, password} = this.state;
+        const {hits, isLoading, diet, health, searchprase, isLoginVisible, username, password, isLoggedIn, userData} = this.state;
 
         return (
             <div className="App">
                 <Navbar
-                    isLogin={isLogin}
+                    isLoginVisible={isLoginVisible}
                     showLoginField={this.showLoginField}
                     hideLoginField={this.hideLoginField}
                     username={username}
@@ -182,14 +266,22 @@ class Home extends Component {
                     handleUsernameInput={this.handleUsernameInput}
                     handlePasswordInput={this.handlePasswordInput}
                     submitLogin={this.submitLogin}
+                    isLoggedIn={isLoggedIn}
+                    userData={userData}
+                    logoutUser={this.logout}
                 />
+
+                {(this.state.wrongCredentials) ?
+                    <p>Wrong Credentials</p> :
+                    <span></span>
+                }
 
                 <SearchBar
                     searchprase={searchprase}
                     onSubmit={this.handleSubmit}
                     searchValueChange={this.handleChange}
-                    checkboxes={diet}
-                    checkboxes2={health}
+                    dietCheckboxes={diet}
+                    healthCheckboxes={health}
                     handleCheckBoxChange={this.handleCheckboxChange}
                 />
                 <Featured/>

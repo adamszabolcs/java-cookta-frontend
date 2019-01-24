@@ -673,6 +673,10 @@ footer p { color: white; }
     text-align: left;
 }
 
+#username {
+    color: white;
+}
+
 .recipe-image {
     position: relative;
 }
