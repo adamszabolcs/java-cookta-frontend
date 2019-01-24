@@ -22,7 +22,6 @@ class App extends Component {
     constructor(props){
         super(props);
 
-        //this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.showLoginField = this.showLoginField.bind(this);
         this.hideLoginField = this.hideLoginField.bind(this);
@@ -60,9 +59,6 @@ class App extends Component {
     }
 
     componentDidMount() {
-        //this.setState({isLoading: true});
-
-        //this.performSearch();
 
         this.checkIfRefered();
 
@@ -102,27 +98,6 @@ class App extends Component {
     }
 
 
-    performSearch = (query = '') => {
-        this.setState({isLoading: true});
-        let passed = "";
-        if (query !== '') {
-            passed = "search/" + query;
-        }
-        console.log(passed);
-        fetch("http://localhost:8080/api/" + passed)
-            .then(response => response.json())
-            .then(responseData => {
-                this.setState({
-                    hits: responseData, isLoading: false
-                });
-            })
-            .catch(error => {
-                // this.setState({hits: []});
-                console.log('Error fetching and parsing data: ', error);
-            });
-    };
-
-
     handleCheckboxChange = name => {
 
         if (name in this.state.diet) {
@@ -144,28 +119,6 @@ class App extends Component {
         }
     };
 
-    /*handleSubmit(event) {
-        event.preventDefault();
-        let urlPart = "?q=" + this.state.searchprase + "&";
-        let diet = this.state.diet;
-        let health = this.state.health;
-
-        for (let h in health) {
-            if (health[h] && HEALTH_FILTER.indexOf(h) > -1) {
-                urlPart += "health" + "=" + h.toLowerCase() + "-free" + "&"
-            }
-        }
-        for (let d in diet) {
-            if (diet[d] && DIET_FILTERS.indexOf(d) > -1) {
-                urlPart += "diet" + "=" + d.toLowerCase() + "&"
-            }
-
-        }
-        urlPart = urlPart.substring(0, urlPart.length - 1);
-        console.log(urlPart);
-        this.performSearch(urlPart)
-
-    }*/
 
     handleChange(event) {
         this.setState({searchprase: event.target.value});
@@ -260,7 +213,7 @@ class App extends Component {
 
     render() {
 
-        const {hits, isLoading, diet, health, searchprase, isLoginVisible, username, password, isLoggedIn, userData} = this.state;
+        const {hits, diet, health, searchprase, isLoginVisible, username, password, isLoggedIn, userData} = this.state;
 
         return (
             <BrowserRouter>
@@ -289,7 +242,6 @@ class App extends Component {
                             handleCheckBoxChange={this.handleCheckboxChange}
                             wrongCredentials={this.state.wrongCredentials}
                             recipes={this.state.hits}
-                            isLoading={this.state.isLoading}
                             isLoggedIn={this.state.isLoggedIn}
                             username={this.state.username}
                             />
