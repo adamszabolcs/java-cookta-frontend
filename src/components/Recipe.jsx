@@ -24,7 +24,7 @@ export default class Recipe extends Component {
                                 <p className="tm-text-grey"></p>
                             </div>
 
-                            <a href={this.props.url} target="_blank" className="tm-recommended-price-box">
+                            <a href={this.props.url} target="_blank" rel="noopener noreferrer"  className="tm-recommended-price-box">
                                 <p className="tm-recommended-price">LET'S COOK</p>
                             </a>
 
