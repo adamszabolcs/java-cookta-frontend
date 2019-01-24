@@ -673,3 +673,24 @@ footer p { color: white; }
     text-align: left;
 }
 
+.recipe-image {
+    position: relative;
+}
+
+.recipe-image .favourite-icon {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+}
+
+.favourite-icon {
+    color: white;
+    font-size: 300%;
+
+}
+
+.added {
+    color: red;
+    font-size: 350%;
+}
+
