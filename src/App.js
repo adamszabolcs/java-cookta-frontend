@@ -9,7 +9,7 @@ import Profile from "./pages/Profile";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {faUndo} from '@fortawesome/free-solid-svg-icons'
 import {Navbar} from "./components/Navbar";
-import {SearchBar} from "./components/SearchBar";
+import {FilterBar} from "./components/FilterBar";
 library.add(faUndo);
 
 const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
@@ -297,7 +297,11 @@ class App extends Component {
                     )}/>
                     <Route exact={true} path='/profile' render={() => (
                         <div className="Profile">
-                            <Profile/>
+                            <Profile
+                                dietCheckboxes={this.state.diet}
+                                healthCheckboxes={this.state.health}
+                                handleCheckBoxChange={this.handleCheckboxChange}/>
+
                         </div>
                     )}/>
 

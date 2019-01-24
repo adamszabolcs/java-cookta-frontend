@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {UserInfoBox} from "../components/UserInfoBox";
 import {Navbar} from "../components/Navbar";
+import {FilterBar} from "../components/FilterBar";
 
 
 export default class Profile extends Component {
@@ -18,7 +19,11 @@ export default class Profile extends Component {
 
         return (
             <div className="Profile">
-                <UserInfoBox/>
+                <UserInfoBox
+                    dietCheckboxes={this.props.dietCheckboxes}
+                    healthCheckboxes={this.props.healthCheckboxes}
+                    handleCheckBoxChange={this.props.handleCheckBoxChange}
+                />
             </div>
 
         );
