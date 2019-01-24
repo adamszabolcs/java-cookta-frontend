@@ -16,7 +16,7 @@ export class UserInfoBox extends Component {
     componentDidMount() {
         this.setState({isLoading: true});
 
-        let username = this.props.username;
+        let username = JSON.parse(localStorage.getItem("username"));
         console.log(username);
 
         fetch("http://localhost:8080/favourites/"+username)
