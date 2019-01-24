@@ -22,7 +22,7 @@ class App extends Component {
     constructor(props){
         super(props);
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        //this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.showLoginField = this.showLoginField.bind(this);
         this.hideLoginField = this.hideLoginField.bind(this);
@@ -60,9 +60,9 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.setState({isLoading: true});
+        //this.setState({isLoading: true});
 
-        this.performSearch();
+        //this.performSearch();
 
         this.checkIfRefered();
 
@@ -144,7 +144,7 @@ class App extends Component {
         }
     };
 
-    handleSubmit(event) {
+    /*handleSubmit(event) {
         event.preventDefault();
         let urlPart = "?q=" + this.state.searchprase + "&";
         let diet = this.state.diet;
@@ -165,7 +165,7 @@ class App extends Component {
         console.log(urlPart);
         this.performSearch(urlPart)
 
-    }
+    }*/
 
     handleChange(event) {
         this.setState({searchprase: event.target.value});

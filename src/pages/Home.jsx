@@ -16,18 +16,18 @@ class Home extends Component {
         super(props);
         let basurl = "https://api.edamam.com/search?q=chicken&app_id=5b5897f7&app_key=9ac6d44f07118d8a2bead5a790b270d5&from=0&to=10&calories=591-722&health=alcohol-free"
 
-        /*this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        /*this.handleChange = this.handleChange.bind(this);
         this.showLoginField = this.showLoginField.bind(this);
         this.hideLoginField = this.hideLoginField.bind(this);
         this.handleUsernameInput = this.handleUsernameInput.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
         this.submitLogin = this.submitLogin.bind(this);
-        this.logout = this.logout.bind(this);
+        this.logout = this.logout.bind(this);*/
 
 
         this.state = {
-            health: HEALTH_FILTER.reduce(
+            /*health: HEALTH_FILTER.reduce(
                 (options, option) => ({
                     ...options,
                     [option]: false
@@ -40,26 +40,26 @@ class Home extends Component {
                     [option]: false
                 }),
                 {}
-            ),
+            ),*/
             hits: [],
-            isLoading: false,
-            searchprase: "",
+            isLoading: false
+            /*searchprase: "",
             isLoginVisible: false,
             username: "",
             password: "",
             userData: {},
             wrongCredentials: false,
-            isLoggedIn: false
-        };*/
+            isLoggedIn: false*/
+        };
     }
 
 
-    /*componentDidMount() {
+    componentDidMount() {
         this.setState({isLoading: true});
 
         this.performSearch();
 
-        this.checkIfRefered();
+        /*this.checkIfRefered();
 
         if (localStorage.getItem("userData") !== null) {
             this.setState({userData: JSON.parse(localStorage.getItem("userData"))});
@@ -67,10 +67,10 @@ class Home extends Component {
             this.setState({username: JSON.parse(localStorage.getItem("username"))});
             this.setState({health: JSON.parse(localStorage.getItem("health"))});
             this.setState({diet: JSON.parse(localStorage.getItem("diet"))});
-        }
+        }*/
     }
 
-
+    /*
     setUserIntolerances(userData, stateData) {
         for (let userDiet in userData) {
             let machingKey = userDiet.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
@@ -95,7 +95,7 @@ class Home extends Component {
             }
         }
     }
-
+*/
 
     performSearch = (query = '') => {
         this.setState({isLoading: true});
@@ -117,7 +117,7 @@ class Home extends Component {
             });
     };
 
-
+/*
     handleCheckboxChange = name => {
 
         if (name in this.state.diet) {
@@ -138,13 +138,14 @@ class Home extends Component {
             }));
         }
     };
+    */
 
 
     handleSubmit(event) {
         event.preventDefault();
-        let urlPart = "?q=" + this.state.searchprase + "&";
-        let diet = this.state.diet;
-        let health = this.state.health;
+        let urlPart = "?q=" + this.props.searchprase + "&";
+        let diet = this.props.dietCheckboxes;
+        let health = this.props.healthCheckboxes;
 
         for (let h in health) {
             if (health[h] && HEALTH_FILTER.indexOf(h) > -1) {
@@ -162,7 +163,7 @@ class Home extends Component {
         this.performSearch(urlPart)
 
     }
-
+/*
     handleChange(event) {
         this.setState({searchprase: event.target.value});
     }
@@ -280,7 +281,7 @@ class Home extends Component {
 
                 <SearchBar
                     searchprase={this.props.searchprase}
-                    onSubmit={this.props.onSubmit}
+                    onSubmit={this.handleSubmit}
                     searchValueChange={this.props.searchValueChange}
                     dietCheckboxes={this.props.dietCheckboxes}
                     healthCheckboxes={this.props.healthCheckboxes}
@@ -288,8 +289,8 @@ class Home extends Component {
                 />
                 <Featured/>
                 <Recipes
-                    recipes={this.props.recipes}
-                    isLoading={this.props.isLoading}
+                    recipes={this.state.hits}
+                    isLoading={this.state.isLoading}
                     isLoggedIn={this.props.isLoggedIn}
                     username={this.props.username}
                 />
