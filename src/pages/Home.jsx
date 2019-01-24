@@ -71,47 +71,31 @@ class Home extends Component {
     }
 
 
-    setDietCheckboxes() {
-        for (let userDiet in this.state.userData.diet) {
-            //if (this.state.userData.diet.hasOwnProperty(userDiet)) {
-                let machingKey = userDiet.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
-                for (let dietKey in this.state.diet) {
-                   // if (this.state.diet.hasOwnProperty(dietKey)) {
-                        if (machingKey === dietKey.toLowerCase()) {
-                            this.setState({
-                                diet: {
-                                    ...this.state.diet,
-                                    [dietKey]: this.state.userData.diet[userDiet]
-                                }
-                            });
-                        }
-                    //}
+    setUserIntolerances(userData, stateData) {
+        for (let userDiet in userData) {
+            let machingKey = userDiet.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+            for (let dietKey in stateData) {
+                if (machingKey === dietKey.toLowerCase()) {
+                    if (dietKey in this.state.diet) {
+                        this.setState({
+                            diet: {
+                                ...this.state.diet,
+                                [dietKey]: this.state.userData.diet[userDiet]
+                            }
+                        });
+                    } else {
+                        this.setState({
+                            health: {
+                                ...this.state.health,
+                                [dietKey]: this.state.userData.health[userDiet]
+                            }
+                        });
+                    }
                 }
-            //}
+            }
         }
     }
 
-    setHealthCheckboxes() {
-        for (let userHealth in this.state.userData.health) {
-            //if (this.state.userData.health.hasOwnProperty(userHealth)) {
-                let machingKey = userHealth.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
-                for (let healthKey in this.state.health) {
-                    //if (this.state.health.hasOwnProperty(healthKey)) {
-                        if (machingKey === healthKey.toLowerCase()) {
-                            console.log("states: ", healthKey);
-                            console.log(machingKey);
-                            this.setState({
-                                health: {
-                                    ...this.state.health,
-                                    [healthKey]: this.state.userData.health[userHealth]
-                                }
-                            });
-                        }
-                  //  }
-                }
-           // }
-        }
-    }
 
     performSearch = (query = '') => {
         this.setState({isLoading: true});
@@ -145,7 +129,7 @@ class Home extends Component {
             }));
         }
 
-        if(name in this.state.health) {
+        if (name in this.state.health) {
             this.setState(prevState => ({
                 health: {
                     ...prevState.health,
@@ -177,9 +161,6 @@ class Home extends Component {
         console.log(urlPart);
         this.performSearch(urlPart)
 
-        /*fetch("http://localhost:8080/api/search/" + urlPart)
-            .then(response => response.json())
-            .then(data => this.setState({hits: data, isLoading: false}));*/
     }
 
     handleChange(event) {
@@ -224,8 +205,9 @@ class Home extends Component {
                 });
                 localStorage.setItem("userData", JSON.stringify(responseData))
             })
-            .then(() => this.setDietCheckboxes())
-            .then(() => this.setHealthCheckboxes())
+            .then(() => this.setUserIntolerances(this.state.userData.diet, this.state.diet))
+            .then(() => this.setUserIntolerances(this.state.userData.health, this.state.health))
+            //.then(() => this.setHealthCheckboxes())
             .then(() => localStorage.setItem("diet", JSON.stringify(this.state.diet)))
             .then(() => localStorage.setItem("health", JSON.stringify(this.state.health)))
             .then(() => console.log('Success:', JSON.stringify(this.state.userData)))
@@ -235,11 +217,11 @@ class Home extends Component {
             });
     }
 
-    logout(){
+    logout() {
         localStorage.removeItem("userData");
         localStorage.removeItem("diet");
         localStorage.removeItem("health");
-        this.setState({isLoggedIn: false });
+        this.setState({isLoggedIn: false});
     }
 
     checkIfRefered() {
