@@ -23,7 +23,7 @@ export class UserInfoBox extends Component {
             .then(response => response.json())
             .then(responseData => {
                 this.setState({
-                    hits: responseData, isLoading: false
+                    recipes: responseData, isLoading: false
                 });
             })
             .catch(error => {
@@ -35,8 +35,11 @@ export class UserInfoBox extends Component {
     render() {
 
         return (
+            <div>
             <div className="tm-container-outer tm-banner-bg">
                 <div className="container">
+                    <br/>
+                    <br/>
                     <div className="card col-xs-12 mx-auto">
                         <div className="card-header">
                             Set-up your intolerances
@@ -48,6 +51,7 @@ export class UserInfoBox extends Component {
                             handleCheckBoxChange={this.props.handleCheckBoxChange}
                         />
                         <br/>
+                        <button type="submit" value="Login" className="btn btn-primary m-2">Save changes</button>
                     </div>
                 </div>
                 <br/>
@@ -62,6 +66,8 @@ export class UserInfoBox extends Component {
                 <br/>
                 <br/>
 
+
+            </div>
                 <Recipes
                     recipes={this.state.recipes}
                     isLoading={this.state.isLoading}
