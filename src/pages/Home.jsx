@@ -23,6 +23,7 @@ class Home extends Component {
         this.handleUsernameInput = this.handleUsernameInput.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
         this.submitLogin = this.submitLogin.bind(this);
+        this.logout = this.logout.bind(this);
 
 
         this.state = {
@@ -235,6 +236,13 @@ class Home extends Component {
             });
     }
 
+    logout(){
+        localStorage.removeItem("userData");
+        localStorage.removeItem("diet");
+        localStorage.removeItem("health");
+        this.setState({isLoggedIn: false });
+    }
+
     checkIfRefered() {
         let windowLocation = window.location.href;
         if (document.referrer === windowLocation.concat("registration")) {
@@ -259,6 +267,7 @@ class Home extends Component {
                     submitLogin={this.submitLogin}
                     isLoggedIn={isLoggedIn}
                     userData={userData}
+                    logoutUser={this.logout}
                 />
 
                 {(this.state.wrongCredentials) ?
