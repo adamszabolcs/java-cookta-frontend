@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Checkbox from "./Checkbox";
 
 const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"]; // code duplication
@@ -9,7 +9,7 @@ export class FilterBar extends Component {
         <Checkbox
             label={option}
             free={"-free"}
-            isSelected={this.props.checkboxes[option]}
+            isSelected={this.props.healthCheckboxes[option]}
             onCheckboxChange={this.props.handleCheckBoxChange}
             key={option}
         />
@@ -20,7 +20,7 @@ export class FilterBar extends Component {
         <Checkbox
             label={option}
             free={""}
-            isSelected={this.props.checkboxes[option]}
+            isSelected={this.props.dietCheckboxes[option]}
             onCheckboxChange={this.props.handleCheckBoxChange}
             key={option}
         />

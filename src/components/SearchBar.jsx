@@ -29,8 +29,8 @@ export class SearchBar extends Component {
                                 </div>
                             </div>
                             <FilterBar
-                                checkboxes={this.props.checkboxes}
-                                checkboxes2={this.props.checkboxes2}
+                                dietCheckboxes={this.props.dietCheckboxes}
+                                healthCheckboxes={this.props.healthCheckboxes}
                                 handleCheckBoxChange={this.props.handleCheckBoxChange}
                             />
                             <div className="form-group tm-form-group tm-form-group-pad tm-form-group-1">
