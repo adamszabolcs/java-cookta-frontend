@@ -191,7 +191,7 @@ class Home extends Component {
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
-            headers: {
+            headers:{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
