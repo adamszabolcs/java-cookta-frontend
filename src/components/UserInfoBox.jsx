@@ -16,7 +16,10 @@ export class UserInfoBox extends Component {
     componentDidMount() {
         this.setState({isLoading: true});
 
-        fetch("http://localhost:8080/" + this.props.username)
+        let username = this.props.username;
+        console.log(username);
+
+        fetch("http://localhost:8080/favourites/"+username)
             .then(response => response.json())
             .then(responseData => {
                 this.setState({

@@ -301,7 +301,7 @@ class App extends Component {
                         </div>
                     )}/>
                     <Route exact={true} path='/profile' render={() => (
-                        <div className="Profile">
+                        <div className="App">
                             <Profile
                                 dietCheckboxes={this.state.diet}
                                 healthCheckboxes={this.state.health}

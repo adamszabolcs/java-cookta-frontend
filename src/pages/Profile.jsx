@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import {UserInfoBox} from "../components/UserInfoBox";
-import {Navbar} from "../components/Navbar";
-import {FilterBar} from "../components/FilterBar";
-
 
 export default class Profile extends Component {
 
@@ -10,21 +7,36 @@ export default class Profile extends Component {
         super(props);
 
         this.state = {
-            userName: null,
-            userEmail: null,
+            username: "",
+            userData: {},
+            isLoggedIn: false
         };
+
+
     }
+
+    componentDidMount() {
+        this.setState({isLoading: true});
+
+
+        if (localStorage.getItem("userData") !== null) {
+            this.setState({userData: JSON.parse(localStorage.getItem("userData"))});
+            this.setState({isLoggedIn: true});
+            this.setState({username: JSON.parse(localStorage.getItem("username"))});
+        }
+    }
+
 
     render() {
 
         return (
-            <div className="Profile">
+            <div className="App">
                 <UserInfoBox
                     dietCheckboxes={this.props.dietCheckboxes}
                     healthCheckboxes={this.props.healthCheckboxes}
                     handleCheckBoxChange={this.props.handleCheckBoxChange}
-                    isLoggedIn={this.props.isLoggedIn}
-                    username={this.props.username}
+                    isLoggedIn={this.state.isLoggedIn}
+                    username={this.state.username}
                 />
             </div>
 
