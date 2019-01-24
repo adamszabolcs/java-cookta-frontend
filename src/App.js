@@ -4,6 +4,7 @@ import './templatemo-style.css';
 import {BrowserRouter, Route} from "react-router-dom";
 import Home from "./pages/Home";
 import Registration from "./pages/Registration";
+import Profile from "./pages/Profile";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {faUndo} from '@fortawesome/free-solid-svg-icons'
@@ -18,7 +19,6 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div>
-
                     <Route exact={true} path='/' render={() =>
                         <div className="App">
                             <Home/>
@@ -26,10 +26,15 @@ class App extends Component {
                     }/>
                     <Route exact={true} path='/registration' render={() => (
                         <div className="App">
-                            <Registration />
+                            <Registration/>
                         </div>
-                    )}
-                    />
+                    )}/>
+                    <Route exact={true} path='/profile' render={() => (
+                        <div className="Profile">
+                            <Profile/>
+                        </div>
+                    )}/>
+
                 </div>
 
             </BrowserRouter>
