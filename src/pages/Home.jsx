@@ -83,13 +83,12 @@ class Home extends Component {
                                     ...this.state.diet,
                                     [dietKey]: this.state.userData.diet[userDiet]
                                 }
-                            })
+                            });
                         }
                     //}
                 }
             //}
         }
-
     }
 
     setHealthCheckboxes() {
@@ -106,7 +105,7 @@ class Home extends Component {
                                     ...this.state.health,
                                     [healthKey]: this.state.userData.health[userHealth]
                                 }
-                            })
+                            });
                         }
                   //  }
                 }

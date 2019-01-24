@@ -9,7 +9,7 @@ export class FilterBar extends Component {
         <Checkbox
             label={option}
             free={"-free"}
-            isSelected={this.props.checkboxes[option]}
+            isSelected={this.props.checkboxes2[option]}
             onCheckboxChange={this.props.handleCheckBoxChange}
             key={option}
         />
