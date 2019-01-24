@@ -222,6 +222,26 @@ class Home extends Component {
         localStorage.removeItem("diet");
         localStorage.removeItem("health");
         this.setState({isLoggedIn: false});
+        this.resetCheckBoxes();
+    }
+
+    resetCheckBoxes(){
+        this.setState({
+            health: HEALTH_FILTER.reduce(
+                (options, option) => ({
+                    ...options,
+                    [option]: false
+                }),
+                {}
+            ),
+            diet: DIET_FILTERS.reduce(
+                (options, option) => ({
+                    ...options,
+                    [option]: false
+                }),
+                {}
+            )
+        });
     }
 
     checkIfRefered() {
