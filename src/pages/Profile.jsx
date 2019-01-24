@@ -18,7 +18,6 @@ export default class Profile extends Component {
 
         return (
             <div className="Profile">
-                <Navbar/>
                 <UserInfoBox/>
             </div>
 
