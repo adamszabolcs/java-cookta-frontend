@@ -110,14 +110,14 @@ export default class Registration extends Component {
                 break;
         }
 
-        this.setState({formErrors, [name]: value}, () => console.log(this.state));
+        this.setState({formErrors, [name]: value});
     };
 
     render() {
         const {formErrors} = this.state;
 
         return (
-            <div className="regWrapper tm-container-outer tm-banner-bg">
+            <div className="wrapper tm-container-outer tm-banner-bg">
                 <div className="form-wrapper">
                     <h1>Create an account</h1>
                     <form onSubmit={this.handleSubmit} noValidate>

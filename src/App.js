@@ -10,6 +10,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {faUndo} from '@fortawesome/free-solid-svg-icons'
 import {Navbar} from "./components/Navbar";
 import {FilterBar} from "./components/FilterBar";
+import {Recipes} from "./components/Recipes";
 library.add(faUndo);
 
 const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
@@ -68,7 +69,7 @@ class App extends Component {
         if (localStorage.getItem("userData") !== null) {
             this.setState({userData: JSON.parse(localStorage.getItem("userData"))});
             this.setState({isLoggedIn: true});
-
+            this.setState({username: JSON.parse(localStorage.getItem("username"))});
             this.setState({health: JSON.parse(localStorage.getItem("health"))});
             this.setState({diet: JSON.parse(localStorage.getItem("diet"))});
         }
@@ -211,6 +212,7 @@ class App extends Component {
             .then(() => this.setUserIntolerances(this.state.userData.diet, this.state.diet))
             .then(() => this.setUserIntolerances(this.state.userData.health, this.state.health))
             //.then(() => this.setHealthCheckboxes())
+            .then(() => localStorage.setItem("username", JSON.stringify(this.state.username)))
             .then(() => localStorage.setItem("diet", JSON.stringify(this.state.diet)))
             .then(() => localStorage.setItem("health", JSON.stringify(this.state.health)))
             .then(() => console.log('Success:', JSON.stringify(this.state.userData)))
@@ -224,6 +226,7 @@ class App extends Component {
         localStorage.removeItem("userData");
         localStorage.removeItem("diet");
         localStorage.removeItem("health");
+        localStorage.removeItem("username");
         this.setState({isLoggedIn: false});
         this.resetCheckBoxes();
     }
@@ -300,7 +303,10 @@ class App extends Component {
                             <Profile
                                 dietCheckboxes={this.state.diet}
                                 healthCheckboxes={this.state.health}
-                                handleCheckBoxChange={this.handleCheckboxChange}/>
+                                handleCheckBoxChange={this.handleCheckboxChange}
+                                isLoggedIn={this.state.isLoggedIn}
+                                username={this.state.username}
+                            />
 
                         </div>
                     )}/>

@@ -46,6 +46,8 @@ export class UserInfoBox extends Component {
                 <Recipes
                     recipes={this.state.recipes}
                     isLoading={this.state.isLoading}
+                    isLoggedIn={this.props.isLoggedIn}
+                    username={this.props.username}
                 />
             </div>
         )

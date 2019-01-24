@@ -64,7 +64,7 @@ class Home extends Component {
         if (localStorage.getItem("userData") !== null) {
             this.setState({userData: JSON.parse(localStorage.getItem("userData"))});
             this.setState({isLoggedIn: true});
-
+            this.setState({username: JSON.parse(localStorage.getItem("username"))});
             this.setState({health: JSON.parse(localStorage.getItem("health"))});
             this.setState({diet: JSON.parse(localStorage.getItem("diet"))});
         }
@@ -210,6 +210,7 @@ class Home extends Component {
             //.then(() => this.setHealthCheckboxes())
             .then(() => localStorage.setItem("diet", JSON.stringify(this.state.diet)))
             .then(() => localStorage.setItem("health", JSON.stringify(this.state.health)))
+            .then(() => localStorage.setItem("username", JSON.stringify(this.state.username)))
             .then(() => console.log('Success:', JSON.stringify(this.state.userData)))
             .catch(error => {
                 this.setState({wrongCredentials: true});
@@ -221,6 +222,7 @@ class Home extends Component {
         localStorage.removeItem("userData");
         localStorage.removeItem("diet");
         localStorage.removeItem("health");
+        localStorage.removeItem("username");
         this.setState({isLoggedIn: false});
         this.resetCheckBoxes();
     }
@@ -288,6 +290,8 @@ class Home extends Component {
                 <Recipes
                     recipes={this.props.recipes}
                     isLoading={this.props.isLoading}
+                    isLoggedIn={this.props.isLoggedIn}
+                    username={this.props.username}
                 />
             </div>
         );

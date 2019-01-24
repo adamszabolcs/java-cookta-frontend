@@ -23,6 +23,8 @@ export default class Profile extends Component {
                     dietCheckboxes={this.props.dietCheckboxes}
                     healthCheckboxes={this.props.healthCheckboxes}
                     handleCheckBoxChange={this.props.handleCheckBoxChange}
+                    isLoggedIn={this.props.isLoggedIn}
+                    username={this.props.username}
                 />
             </div>
 
