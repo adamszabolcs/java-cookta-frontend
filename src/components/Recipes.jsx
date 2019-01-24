@@ -17,7 +17,7 @@ export class Recipes extends Component {
             <div>
                 {this.props.recipes.map(recipe =>
                     <Recipe
-                        key={recipe.label}
+                        key={recipe.url}
                         label={recipe.label}
                         image={recipe.image}
                         ingredientLines={recipe.ingredientLines}

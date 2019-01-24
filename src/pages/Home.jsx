@@ -63,18 +63,19 @@ class Home extends Component {
         if (localStorage.getItem("userData") !== null) {
             this.setState({userData: JSON.parse(localStorage.getItem("userData"))});
             this.setState({isLoggedIn: true});
-            this.setState({diet: JSON.parse(localStorage.getItem("diet"))})
+
+            this.setState({health: JSON.parse(localStorage.getItem("health"))});
+            this.setState({diet: JSON.parse(localStorage.getItem("diet"))});
         }
     }
 
 
-    setIntolerance() {
-        //console.log(this.state.userData);
+    setDietCheckboxes() {
         for (let userDiet in this.state.userData.diet) {
-            if (this.state.userData.diet.hasOwnProperty(userDiet)) {
+            //if (this.state.userData.diet.hasOwnProperty(userDiet)) {
                 let machingKey = userDiet.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
                 for (let dietKey in this.state.diet) {
-                    if (this.state.diet.hasOwnProperty(dietKey)) {
+                   // if (this.state.diet.hasOwnProperty(dietKey)) {
                         if (machingKey === dietKey.toLowerCase()) {
                             this.setState({
                                 diet: {
@@ -83,9 +84,32 @@ class Home extends Component {
                                 }
                             })
                         }
-                    }
+                    //}
                 }
-            }
+            //}
+        }
+
+    }
+
+    setHealthCheckboxes() {
+        for (let userHealth in this.state.userData.health) {
+            //if (this.state.userData.health.hasOwnProperty(userHealth)) {
+                let machingKey = userHealth.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+                for (let healthKey in this.state.health) {
+                    //if (this.state.health.hasOwnProperty(healthKey)) {
+                        if (machingKey === healthKey.toLowerCase()) {
+                            console.log("states: ", healthKey);
+                            console.log(machingKey);
+                            this.setState({
+                                health: {
+                                    ...this.state.health,
+                                    [healthKey]: this.state.userData.health[userHealth]
+                                }
+                            })
+                        }
+                  //  }
+                }
+           // }
         }
     }
 
@@ -119,7 +143,9 @@ class Home extends Component {
                     [name]: !prevState.diet[name]
                 },
             }));
-        }else {
+        }
+
+        if(name in this.state.health) {
             this.setState(prevState => ({
                 health: {
                     ...prevState.health,
@@ -127,7 +153,6 @@ class Home extends Component {
                 }
             }));
         }
-
     };
 
 
@@ -199,8 +224,10 @@ class Home extends Component {
                 });
                 localStorage.setItem("userData", JSON.stringify(responseData))
             })
-            .then(() => this.setIntolerance())
+            .then(() => this.setDietCheckboxes())
+            .then(() => this.setHealthCheckboxes())
             .then(() => localStorage.setItem("diet", JSON.stringify(this.state.diet)))
+            .then(() => localStorage.setItem("health", JSON.stringify(this.state.health)))
             .then(() => console.log('Success:', JSON.stringify(this.state.userData)))
             .catch(error => {
                 this.setState({wrongCredentials: true});
