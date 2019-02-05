@@ -19,7 +19,7 @@ export class Navbar extends Component {
                                     className="sr-only">(current)</span></a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={() => this.props.showLoginField()}>Login</a>
+                                <a className="nav-link" href="" onClick={() => this.props.showLoginField()}>Login</a>
                             </li>
                         </ul>
                     :

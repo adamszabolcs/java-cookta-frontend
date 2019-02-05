@@ -5,6 +5,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Home from "./pages/Home";
 import Registration from "./pages/Registration";
 import Profile from "./pages/Profile";
+import Auth from "./Auth.js"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {faUndo} from '@fortawesome/free-solid-svg-icons'
@@ -16,6 +17,7 @@ library.add(faUndo);
 const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
 const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
 
+const auth = new Auth();
 
 class App extends Component {
 
@@ -29,6 +31,7 @@ class App extends Component {
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
         this.submitLogin = this.submitLogin.bind(this);
         this.logout = this.logout.bind(this);
+
 
         this.state = {
             health: HEALTH_FILTER.reduce(
@@ -57,6 +60,7 @@ class App extends Component {
         };
 
     }
+
 
     componentDidMount() {
 
@@ -125,7 +129,8 @@ class App extends Component {
     }
 
     showLoginField() {
-        this.setState({isLoginVisible: true})
+        auth.login()
+        //this.setState({isLoginVisible: true})
     }
 
     hideLoginField() {
