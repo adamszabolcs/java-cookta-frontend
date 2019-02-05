@@ -1,3 +1,4 @@
+import Auth from './Auth.js';
 import React, {Component} from 'react';
 import './App.css';
 import './templatemo-style.css';
@@ -16,6 +17,7 @@ library.add(faUndo);
 const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
 const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
 
+const auth = new Auth();
 
 class App extends Component {
 
@@ -125,7 +127,8 @@ class App extends Component {
     }
 
     showLoginField() {
-        this.setState({isLoginVisible: true})
+        auth.login();
+        //this.setState({isLoginVisible: true})
     }
 
     hideLoginField() {
@@ -231,7 +234,9 @@ class App extends Component {
                         userData={userData}
                         logoutUser={this.logout}
                     />
-                    <Route exact={true} path='/' render={() =>
+                    <Route exact={true} path='/' render={() => {
+                        auth.handleAuthentication();
+                        return (
                         <div className="App">
                             <Home
                             searchprase={this.state.searchprase}
@@ -245,7 +250,7 @@ class App extends Component {
                             isLoggedIn={this.state.isLoggedIn}
                             username={this.state.username}
                             />
-                        </div>
+                        </div> )}
                     }/>
                     <Route exact={true} path='/registration' render={() => (
                         <div className="App">
