@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import '../App.css';
 import '../templatemo-style.css';
 import '../registration.css';
-import Home from "../pages/Home.jsx";
 
-const apiRegUrl = "http://192.168.163.25:8080/api/register";
+const apiRegUrl = "http://localhost:8080/api/register";
 const emailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
 const formValid = ({formErrors, ...rest}) => {
@@ -111,14 +110,14 @@ export default class Registration extends Component {
                 break;
         }
 
-        this.setState({formErrors, [name]: value}, () => console.log(this.state));
+        this.setState({formErrors, [name]: value});
     };
 
     render() {
         const {formErrors} = this.state;
 
         return (
-            <div className="wrapper tm-container-outer tm-banner-bg">
+            <div className="regWrapper tm-container-outer tm-banner-bg">
                 <div className="form-wrapper">
                     <h1>Create an account</h1>
                     <form onSubmit={this.handleSubmit} noValidate>
