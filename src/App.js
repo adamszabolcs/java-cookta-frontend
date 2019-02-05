@@ -179,6 +179,7 @@ class App extends Component {
     }
 
     logout() {
+        auth.logout();
         localStorage.removeItem("userData");
         localStorage.removeItem("diet");
         localStorage.removeItem("health");
