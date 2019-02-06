@@ -5,12 +5,12 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Home from "./pages/Home";
 import Registration from "./pages/Registration";
 import Profile from "./pages/Profile";
+import AddRecipe from "./pages/AddRecipe";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {faUndo} from '@fortawesome/free-solid-svg-icons'
 import {Navbar} from "./components/Navbar";
-import {FilterBar} from "./components/FilterBar";
-import {Recipes} from "./components/Recipes";
+
 library.add(faUndo);
 
 const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
@@ -262,6 +262,11 @@ class App extends Component {
                                 username={this.state.username}
                             />
 
+                        </div>
+                    )}/>
+                    <Route exact={true} path='/addrecipe' render={() => (
+                        <div className="App">
+                            <AddRecipe/>
                         </div>
                     )}/>
 
