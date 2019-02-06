@@ -25,6 +25,12 @@ export default class AddRecipe extends Component {
         });
     };
 
+    handleDietClick = () => {
+        this.setState({dietInputs: this.state.dietInputs + 1}, () => {
+            console.log(this.state.dietInputs)
+        });
+    };
+
 
     createHealthSelect = () => {
         let healthInputs = [];
@@ -42,6 +48,25 @@ export default class AddRecipe extends Component {
             </div>)
         }
         return healthInputs;
+
+    };
+
+    createDietSelect = () => {
+        let dietInputs = [];
+
+        for (let i = 0; i < this.state.dietInputs; i++) {
+            dietInputs.push(
+                <div className="diet">
+                    <label htmlFor="userName" className="inputLabel">Choose diet label</label>
+                    <select name="diet" className="addRecipeDropdown">
+                        <option value="default" defaultValue={false}>No diet label added</option>
+                        {DIET_FILTERS.map((diet) =>
+                            <option value="health">{diet}</option>
+                        )};
+                    </select>
+                </div>)
+        }
+        return dietInputs;
 
     };
 
@@ -81,21 +106,13 @@ export default class AddRecipe extends Component {
                         </div>
 
                         {this.createHealthSelect()}
-
-
                         <div className="plusButton" onClick={this.handleHealthClick}>
                             <FontAwesomeIcon icon="plus-square"/>
                         </div>
 
-
-                        <div className="diet">
-                            <label htmlFor="userName" className="inputLabel">Choose diet label</label>
-                            <select name="diet" className="addRecipeDropdown">
-                                <option value="default" defaultValue={false}>No diet label added</option>
-                                {DIET_FILTERS.map((diet) =>
-                                    <option value="health">{diet}</option>
-                                )};
-                            </select>
+                        {this.createDietSelect()}
+                        <div className="plusButton" onClick={this.handleDietClick}>
+                            <FontAwesomeIcon icon="plus-square"/>
                         </div>
 
                         <div className="recipeInstruction">
