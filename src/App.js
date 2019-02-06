@@ -31,6 +31,7 @@ class App extends Component {
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
         this.submitLogin = this.submitLogin.bind(this);
         this.logout = this.logout.bind(this);
+        this.handleSelectedFile = this.handleSelectedFile.bind(this);
 
         this.state = {
             health: HEALTH_FILTER.reduce(
@@ -57,7 +58,6 @@ class App extends Component {
             wrongCredentials: false,
             isLoggedIn: false,
             selectedFile: null,
-            loaded: 0,
         };
 
     }
@@ -104,6 +104,14 @@ class App extends Component {
             }
         }
     }
+
+    handleSelectedFile = event => {
+        this.setState({
+            selectedFile: event.target.files[0],
+            loaded: 0,
+        });
+        console.log("Beletettem! " + this.state.selectedFile)
+    };
 
 
     handleCheckboxChange = name => {
@@ -223,7 +231,7 @@ class App extends Component {
 
     render() {
 
-        const {hits, diet, health, searchprase, isLoginVisible, username, password, isLoggedIn, userData} = this.state;
+        const {hits, diet, health, searchprase, isLoginVisible, username, password, isLoggedIn, userData, selectedFile} = this.state;
 
         return (
             <BrowserRouter>
@@ -259,6 +267,8 @@ class App extends Component {
                             recipes={this.state.hits}
                             isLoggedIn={this.state.isLoggedIn}
                             username={this.state.username}
+                            selectedFile={this.state.selectedFile}
+                            handleSelectedFile={this.handleSelectedFile}
                             />
                         </div> )}
                     }/>

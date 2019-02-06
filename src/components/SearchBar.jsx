@@ -2,21 +2,14 @@ import React, {Component} from 'react';
 import {FilterBar} from "./FilterBar";
 
 const form = "multipart/form-data";
+
 export class SearchBar extends Component {
 
-
-
-    handleselectedFile = event => {
-        this.setState({
-            selectedFile: event.target.files[0],
-            loaded: 0,
-        })
-    };
 
     handleUpload = () => {
         const data = new FormData();
         const url = "http://localhost:8080/uploadFile";
-        data.append('file', this.state.selectedFile, this.state.selectedFile.name);
+        data.append('file', this.props.selectedFile, this.props.selectedFile.name);
         fetch(url, {
             method: 'POST',
             body: {
@@ -67,14 +60,12 @@ export class SearchBar extends Component {
                                 </button>
                             </div>
                         </form>
-                        <form encType={form}>
-                            <input type="file" name="" id="" onChange={this.handleselectedFile}/>
-                            <button onClick={this.handleUpload}>Upload</button>
-                        </form>
+                        <input type="file" name="" id="" onChange={this.props.handleSelectedFile}/>
+                        <button onClick={this.handleUpload}>Upload</button>
+                    </div>
                 </div>
             </div>
-    </div>
-    )
+        )
     }
 
 }

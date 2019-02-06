@@ -41,7 +41,7 @@ class Home extends Component {
         console.log(passed);
         fetch("http://localhost:8080/api/" + passed)
             .then(response => response.json())
-            .then(responseData => {
+            .then((responseData) => {
                 this.setState({
                     hits: responseData, isLoading: false
                 });
@@ -90,12 +90,14 @@ class Home extends Component {
                 }
 
                 <SearchBar
+                    selectedFile={this.props.selectedFile}
                     searchprase={this.props.searchprase}
                     onSubmit={this.handleSubmit}
                     searchValueChange={this.props.searchValueChange}
                     dietCheckboxes={this.props.dietCheckboxes}
                     healthCheckboxes={this.props.healthCheckboxes}
                     handleCheckBoxChange={this.props.handleCheckBoxChange}
+                    handleSelectedFile={this.props.handleSelectedFile}
                 />
                 <Featured/>
                 <Recipes
