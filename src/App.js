@@ -145,7 +145,7 @@ class App extends Component {
 
     submitLogin(event) {
         event.preventDefault();
-        let url = 'http://localhost:8080/cookta/login';
+        let url = 'http://localhost:8080/api/login';
         let data = {username: this.state.username, password: this.state.password};
 
         fetch(url, {

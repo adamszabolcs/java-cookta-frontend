@@ -21,7 +21,7 @@ export class UserInfoBox extends Component {
         let username = JSON.parse(localStorage.getItem("username"));
         console.log(username);
 
-        fetch("http://localhost:8080/favourites/" + username)
+        fetch("http://localhost:8080//api/favourites/" + username)
             .then(response => response.json())
             .then(responseData => {
                 this.setState({
@@ -41,7 +41,7 @@ export class UserInfoBox extends Component {
 
         let username = JSON.parse(localStorage.getItem("username"));
 
-        fetch("http://localhost:8080/intolerance/" + username, {
+        fetch("http://localhost:8080/api/intolerance/" + username, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -51,7 +51,7 @@ export class UserInfoBox extends Component {
                 diet: this.props.dietCheckboxes,
                 health: this.props.healthCheckboxes,
             })
-        }).then(() => console.log("lol"))
+        }).then(() => console.log("intolerances saved"))
             .catch(error => {
                 // this.setState({hits: []});
                 console.log('Error fetching and parsing data: ', error);
