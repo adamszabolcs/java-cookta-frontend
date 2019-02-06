@@ -22,11 +22,11 @@ export default class Auth {
         this.auth0.authorize();
     }
 
-    handleAuthentication() {
+    handleAuthentication(callback) {
         this.auth0.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 window.location.hash = '';
-                this.setSession(authResult);
+                this.setSession(authResult, callback);
             } else if (err) {
                 console.log(err);
                 alert(`Error: ${err.error}. Check the console for further details.`);
@@ -34,7 +34,7 @@ export default class Auth {
         });
     }
 
-    setSession(authResult) {
+    setSession(authResult, callback) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem("idToken", authResult.idToken);
         localStorage.setItem("accessToken", authResult.accessToken);
@@ -43,6 +43,7 @@ export default class Auth {
             if (profile) {
                 localStorage.setItem("username", profile.nickname);
                 console.log(profile.nickname);
+                callback(profile.nickname);
             }
         });
     }

@@ -24,10 +24,7 @@ class App extends Component {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
-        this.showLoginField = this.showLoginField.bind(this);
-        this.hideLoginField = this.hideLoginField.bind(this);
-        this.handleUsernameInput = this.handleUsernameInput.bind(this);
-        this.handlePasswordInput = this.handlePasswordInput.bind(this);
+        this.loginUser = this.loginUser.bind(this);
         this.submitLogin = this.submitLogin.bind(this);
         this.logout = this.logout.bind(this);
 
@@ -51,7 +48,6 @@ class App extends Component {
             searchprase: "",
             isLoginVisible: false,
             username: "",
-            password: "",
             userData: {},
             wrongCredentials: false,
             isLoggedIn: false
@@ -62,10 +58,6 @@ class App extends Component {
     componentDidMount() {
 
         this.checkIfRefered();
-
-        if(localStorage.getItem("isLoggedIn") !== null && localStorage.getItem("userData") === null){
-            this.submitLogin();
-        }
 
         if (localStorage.getItem("userData") !== null) {
             this.setState({userData: JSON.parse(localStorage.getItem("userData"))});
@@ -128,27 +120,14 @@ class App extends Component {
         this.setState({searchprase: event.target.value});
     }
 
-    showLoginField() {
+    loginUser() {
         auth.login();
-        //this.setState({isLoginVisible: true})
     }
 
-    hideLoginField() {
-        this.setState({isLoginVisible: false})
-    }
-
-    handleUsernameInput(event) {
-        this.setState({username: event.target.value});
-    }
-
-    handlePasswordInput(event) {
-        this.setState({password: event.target.value});
-    }
-
-    submitLogin() {
+    submitLogin(username) {
         let url = 'http://localhost:8080/cookta/authentication';
         //let data = {username: this.state.username, password: this.state.password};
-        let data = {username: localStorage.getItem("username"), userId: localStorage.getItem("userId")};
+        let data = {username: username};
         console.log("login");
         console.log(data);
         fetch(url, {
@@ -213,46 +192,41 @@ class App extends Component {
     checkIfRefered() {
         let windowLocation = window.location.href;
         if (document.referrer === windowLocation.concat("registration")) {
-            this.showLoginField()
+            this.loginUser()
         }
     }
 
 
     render() {
 
-        const {hits, diet, health, searchprase, isLoginVisible, username, password, isLoggedIn, userData} = this.state;
+        const {diet, health, isLoginVisible, username, isLoggedIn, userData, searchprase, wrongCredentials, hits} = this.state;
 
         return (
             <BrowserRouter>
                 <div>
                     <Navbar
                         isLoginVisible={isLoginVisible}
-                        showLoginField={this.showLoginField}
-                        hideLoginField={this.hideLoginField}
+                        loginUser={this.loginUser}
                         username={username}
-                        password={password}
-                        handleUsernameInput={this.handleUsernameInput}
-                        handlePasswordInput={this.handlePasswordInput}
-                        submitLogin={this.submitLogin}
                         isLoggedIn={isLoggedIn}
                         userData={userData}
                         logoutUser={this.logout}
                     />
                     <Route exact={true} path='/' render={() => {
-                        auth.handleAuthentication();
+                        auth.handleAuthentication(this.submitLogin);
                         return (
                         <div className="App">
                             <Home
-                            searchprase={this.state.searchprase}
+                            searchprase={searchprase}
                             onSubmit={this.handleSubmit}
                             searchValueChange={this.handleChange}
                             dietCheckboxes={diet}
                             healthCheckboxes={health}
                             handleCheckBoxChange={this.handleCheckboxChange}
-                            wrongCredentials={this.state.wrongCredentials}
-                            recipes={this.state.hits}
-                            isLoggedIn={this.state.isLoggedIn}
-                            username={this.state.username}
+                            wrongCredentials={wrongCredentials}
+                            recipes={hits}
+                            isLoggedIn={isLoggedIn}
+                            username={username}
                             />
                         </div> )}
                     }/>
@@ -270,7 +244,6 @@ class App extends Component {
                                 isLoggedIn={this.state.isLoggedIn}
                                 username={this.state.username}
                             />
-
                         </div>
                     )}/>
 
