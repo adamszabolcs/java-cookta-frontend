@@ -55,12 +55,18 @@ class App extends Component {
             password: "",
             userData: {},
             wrongCredentials: false,
-            isLoggedIn: false
+            isLoggedIn: false,
+            selectedFile: null,
+            loaded: 0,
         };
 
     }
 
     componentDidMount() {
+        
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            console.log("itt vagyunk!");
+        }
 
         this.checkIfRefered();
 
@@ -237,9 +243,12 @@ class App extends Component {
                     />
                     <Route exact={true} path='/' render={() => {
                         auth.handleAuthentication();
+                        auth.renewSession();
+                        console.log(auth);
+                        console.log(auth.getAccessToken());
                         return (
                         <div className="App">
-                            <Home
+                            <Home auth={auth}
                             searchprase={this.state.searchprase}
                             onSubmit={this.handleSubmit}
                             searchValueChange={this.handleChange}

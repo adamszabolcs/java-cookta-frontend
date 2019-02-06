@@ -57,6 +57,7 @@ export default class Auth {
         this.accessToken = authResult.accessToken;
         this.idToken = authResult.idToken;
         this.expiresAt = expiresAt;
+        console.log("setted");
 
         localStorage.setItem("accessToken", authResult.accessToken);
 
@@ -72,6 +73,7 @@ export default class Auth {
         this.auth0.checkSession({}, (err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 this.setSession(authResult);
+                console.log("setSession done");
             } else if (err) {
                 this.logout();
                 console.log(err);
@@ -88,6 +90,8 @@ export default class Auth {
 
         // Remove isLoggedIn flag from localStorage
         localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('username');
 
         // navigate to the home route
     }

@@ -1,7 +1,33 @@
 import React, {Component} from 'react';
 import {FilterBar} from "./FilterBar";
 
+const form = "multipart/form-data";
 export class SearchBar extends Component {
+
+
+
+    handleselectedFile = event => {
+        this.setState({
+            selectedFile: event.target.files[0],
+            loaded: 0,
+        })
+    };
+
+    handleUpload = () => {
+        const data = new FormData();
+        const url = "http://localhost:8080/uploadFile";
+        data.append('file', this.state.selectedFile, this.state.selectedFile.name);
+        fetch(url, {
+            method: 'POST',
+            body: {
+                file: data
+            }
+        })
+            .then(console.log("sikeres!"))
+            .catch(error => {
+                console.log(error);
+            })
+    };
 
     render() {
         return (
@@ -36,16 +62,19 @@ export class SearchBar extends Component {
                             <div className="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                                 <label htmlFor="btnSubmit">&nbsp;</label>
                                 <button type="submit" className="btn btn-primary tm-btn tm-btn-search text-uppercase"
-                                        /*onClick={() => this.props.onSubmit(true)}*/
+                                    /*onClick={() => this.props.onSubmit(true)}*/
                                         id="btnSubmit">Submit search
                                 </button>
                             </div>
                         </form>
-
-                    </div>
+                        <form encType={form}>
+                            <input type="file" name="" id="" onChange={this.handleselectedFile}/>
+                            <button onClick={this.handleUpload}>Upload</button>
+                        </form>
                 </div>
             </div>
-        )
+    </div>
+    )
     }
 
 }
