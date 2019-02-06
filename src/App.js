@@ -70,7 +70,7 @@ class App extends Component {
         if (localStorage.getItem("userData") !== null) {
             this.setState({userData: JSON.parse(localStorage.getItem("userData"))});
             this.setState({isLoggedIn: true});
-            this.setState({username: JSON.parse(localStorage.getItem("username"))});
+            this.setState({username: localStorage.getItem("username")});
             this.setState({health: JSON.parse(localStorage.getItem("health"))});
             this.setState({diet: JSON.parse(localStorage.getItem("diet"))});
         }
@@ -146,7 +146,7 @@ class App extends Component {
     }
 
     submitLogin() {
-        let url = 'http://localhost:8080/cookta/login';
+        let url = 'http://localhost:8080/cookta/authentication';
         //let data = {username: this.state.username, password: this.state.password};
         let data = {username: localStorage.getItem("username"), userId: localStorage.getItem("userId")};
         console.log("login");
@@ -171,7 +171,7 @@ class App extends Component {
             .then(() => this.setUserIntolerances(this.state.userData.diet, this.state.diet))
             .then(() => this.setUserIntolerances(this.state.userData.health, this.state.health))
             //.then(() => this.setHealthCheckboxes())
-            .then(() => localStorage.setItem("username", JSON.stringify(this.state.username)))
+            //.then(() => localStorage.setItem("username", JSON.stringify(this.state.username)))
             .then(() => localStorage.setItem("diet", JSON.stringify(this.state.diet)))
             .then(() => localStorage.setItem("health", JSON.stringify(this.state.health)))
             .then(() => console.log('Success:', JSON.stringify(this.state.userData)))

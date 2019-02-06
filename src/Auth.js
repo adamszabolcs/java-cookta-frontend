@@ -42,7 +42,7 @@ export default class Auth {
        this.auth0.client.userInfo(authResult.accessToken, function(err, profile) {
             if (profile) {
                 localStorage.setItem("username", profile.nickname);
-                //localStorage.setItem("userId", profile.sub.split("|")[1]);
+                console.log(profile.nickname);
             }
         });
     }

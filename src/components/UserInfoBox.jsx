@@ -5,7 +5,7 @@ import {Recipes} from "./Recipes";
 export class UserInfoBox extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.saveIntoleranceChanges = this.saveIntoleranceChanges.bind(this);
 
@@ -16,20 +16,21 @@ export class UserInfoBox extends Component {
     }
 
     componentDidMount() {
+
         this.setState({isLoading: true});
 
-        let username = JSON.parse(localStorage.getItem("username"));
+        let username = localStorage.getItem("username");
         console.log(username);
 
         fetch("http://localhost:8080/favourites/" + username)
             .then(response => response.json())
             .then(responseData => {
-                this.setState({
-                    recipes: responseData, isLoading: false
-                });
+                    this.setState({
+                        recipes: responseData, isLoading: false
+                    });
+                //}
             })
             .catch(error => {
-                // this.setState({hits: []});
                 console.log('Error fetching and parsing data: ', error);
             });
     }

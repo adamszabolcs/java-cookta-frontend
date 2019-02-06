@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Link from "react-router-dom/es/Link";
 
 export class Navbar extends Component {
 
@@ -32,8 +33,8 @@ export class Navbar extends Component {
                 </div>
                     :
                     <div  className="collapse navbar-collapse justify-content-md-center">
-                        <a className="nav-link" href="/profile" id="username">{this.props.userData.username}</a>
-                        <button class="btn-primary" onClick={() => this.props.logoutUser()}>Logout
+                        <Link to="/profile" >{this.props.userData.username}</Link>
+                        <button className="btn-primary" onClick={() => this.props.logoutUser()}>Logout
                         </button>
                     </div>
                 }
