@@ -20,15 +20,11 @@ export default class AddRecipe extends Component {
     }
 
     handleHealthClick = () => {
-        this.setState({healthInputs: this.state.healthInputs + 1}, () => {
-            console.log(this.state.healthInputs)
-        });
+        this.setState({healthInputs: this.state.healthInputs + 1});
     };
 
     handleDietClick = () => {
-        this.setState({dietInputs: this.state.dietInputs + 1}, () => {
-            console.log(this.state.dietInputs)
-        });
+        this.setState({dietInputs: this.state.dietInputs + 1});
     };
 
 
