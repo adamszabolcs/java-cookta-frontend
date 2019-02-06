@@ -10,8 +10,7 @@ import Profile from "./pages/Profile";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {faUndo} from '@fortawesome/free-solid-svg-icons'
 import {Navbar} from "./components/Navbar";
-import {FilterBar} from "./components/FilterBar";
-import {Recipes} from "./components/Recipes";
+
 library.add(faUndo);
 
 const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
@@ -63,6 +62,10 @@ class App extends Component {
     componentDidMount() {
 
         this.checkIfRefered();
+
+        if(localStorage.getItem("isLoggedIn") !== null && localStorage.getItem("userData") === null){
+            this.submitLogin();
+        }
 
         if (localStorage.getItem("userData") !== null) {
             this.setState({userData: JSON.parse(localStorage.getItem("userData"))});
@@ -121,7 +124,6 @@ class App extends Component {
         }
     };
 
-
     handleChange(event) {
         this.setState({searchprase: event.target.value});
     }
@@ -143,11 +145,12 @@ class App extends Component {
         this.setState({password: event.target.value});
     }
 
-    submitLogin(event) {
-        event.preventDefault();
+    submitLogin() {
         let url = 'http://localhost:8080/cookta/login';
-        let data = {username: this.state.username, password: this.state.password};
-
+        //let data = {username: this.state.username, password: this.state.password};
+        let data = {username: localStorage.getItem("username"), userId: localStorage.getItem("userId")};
+        console.log("login");
+        console.log(data);
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
@@ -159,8 +162,8 @@ class App extends Component {
             .then(responseData => {
                 this.setState({
                     userData: responseData,
-                    wrongCredentials: false,
-                    password: "",
+                    //wrongCredentials: false,
+                    //password: "",
                     isLoggedIn: true
                 });
                 localStorage.setItem("userData", JSON.stringify(responseData))
