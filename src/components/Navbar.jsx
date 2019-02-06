@@ -34,7 +34,7 @@ export class Navbar extends Component {
                     :
                     <div  className="collapse navbar-collapse justify-content-md-center">
                         <Link to="/profile" >{this.props.userData.username}</Link>
-                        <button className="btn-primary" onClick={() => this.props.logoutUser()}>Logout
+                        <button className="btn-primary logoutButton" onClick={() => this.props.logoutUser()}>Logout
                         </button>
                     </div>
                 }

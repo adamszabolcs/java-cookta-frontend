@@ -20,7 +20,6 @@ export class UserInfoBox extends Component {
         this.setState({isLoading: true});
 
         let username = localStorage.getItem("username");
-        console.log(username);
 
         fetch("http://localhost:8080/favourites/" + username)
             .then(response => response.json())
