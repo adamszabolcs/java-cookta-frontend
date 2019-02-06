@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {FilterBar} from "./FilterBar";
 
-const form = "multipart/form-data";
-
 export class SearchBar extends Component {
 
 
@@ -10,11 +8,10 @@ export class SearchBar extends Component {
         const data = new FormData();
         const url = "http://localhost:8080/uploadFile";
         data.append('file', this.props.selectedFile, this.props.selectedFile.name);
+        console.log(data);
         fetch(url, {
             method: 'POST',
-            body: {
-                file: data
-            }
+            body: data
         })
             .then(console.log("sikeres!"))
             .catch(error => {
