@@ -20,7 +20,7 @@ export default class AddRecipe extends Component {
                             <label htmlFor="userName" className="inputLabel">Enter the recipe's title</label>
                             <input type="text"
                                    placeholder="Title"
-                                   name="userName"
+                                   name="recipeLabel"
                                    className="addRecipeInput"
                             />
                         </div>
@@ -35,9 +35,9 @@ export default class AddRecipe extends Component {
 
                         <div className="ingredients">
                             <label htmlFor="email" className="inputLabel">Add ingredients</label>
-                            <input type="email"
+                            <input type="text"
                                    placeholder="Ingredient"
-                                   name="userEmail"
+                                   name="ingredients"
                                    className="addRecipeInput"
                             />
                         </div>
@@ -64,11 +64,11 @@ export default class AddRecipe extends Component {
 
                         <div className="recipeInstruction">
                             <label htmlFor="password" className="inputLabel">Add instructions</label>
-                            <textarea type="password"
+                            <textarea type="text"
                                    rows="10"
                                    cols="30"
                                    placeholder="Instructions"
-                                   name="userPassword"
+                                   name="recipeInstruction"
                                    className="addRecipeInput"
                             />
                         </div>
