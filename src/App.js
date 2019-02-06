@@ -68,7 +68,6 @@ class App extends Component {
         }
     }
 
-
     setUserIntolerances(userData, stateData) {
         for (let userDiet in userData) {
             let machingKey = userDiet.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
@@ -93,7 +92,6 @@ class App extends Component {
             }
         }
     }
-
 
     handleCheckboxChange = name => {
 

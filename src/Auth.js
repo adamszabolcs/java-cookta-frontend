@@ -42,7 +42,6 @@ export default class Auth {
        this.auth0.client.userInfo(authResult.accessToken, function(err, profile) {
             if (profile) {
                 localStorage.setItem("username", profile.nickname);
-                console.log(profile.nickname);
                 callback(profile.nickname);
             }
         });
