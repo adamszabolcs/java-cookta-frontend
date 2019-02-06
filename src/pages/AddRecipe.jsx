@@ -3,11 +3,49 @@ import React, {Component} from 'react';
 import '../App.css';
 import '../templatemo-style.css';
 import '../addrecipe.css';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
 const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
 
 export default class AddRecipe extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            healthInputs: 1,
+            dietInputs: 1
+        }
+    }
+
+    handleHealthClick = () => {
+        this.setState({healthInputs: this.state.healthInputs + 1}, () => {
+            console.log(this.state.healthInputs)
+        });
+    };
+
+
+    createHealthSelect = () => {
+        let healthInputs = [];
+
+        for (let i = 0; i < this.state.healthInputs; i++) {
+            healthInputs.push(
+                <div className="health">
+                <label htmlFor="userName" className="inputLabel">Choose health label</label>
+                <select name="health" className="addRecipeDropdown">
+                    <option value="default" defaultValue={false}>No health label added</option>
+                    {HEALTH_FILTER.map((health) =>
+                        <option value={health}>{health}</option>
+                    )};
+                </select>
+            </div>)
+        }
+        return healthInputs;
+
+    };
+
+
 
     render() {
 
@@ -42,20 +80,18 @@ export default class AddRecipe extends Component {
                             />
                         </div>
 
-                        <div className="health">
-                            <label htmlFor="userName" className="inputLabel">Choose health label(s)</label>
-                            <select name="health" className="addRecipeDropdown">
-                                    <option value="default" selected>No health label added</option>
-                                {HEALTH_FILTER.map((health) =>
-                                    <option value="health">{health}</option>
-                                )};
-                            </select>
+                        {this.createHealthSelect()}
+
+
+                        <div className="plusButton" onClick={this.handleHealthClick}>
+                            <FontAwesomeIcon icon="plus-square"/>
                         </div>
 
+
                         <div className="diet">
-                            <label htmlFor="userName" className="inputLabel">Choose diet label(s)</label>
+                            <label htmlFor="userName" className="inputLabel">Choose diet label</label>
                             <select name="diet" className="addRecipeDropdown">
-                                <option value="default" selected>No diet label added</option>
+                                <option value="default" defaultValue={false}>No diet label added</option>
                                 {DIET_FILTERS.map((diet) =>
                                     <option value="health">{diet}</option>
                                 )};

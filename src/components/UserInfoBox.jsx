@@ -5,7 +5,7 @@ import {Recipes} from "./Recipes";
 export class UserInfoBox extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.saveIntoleranceChanges = this.saveIntoleranceChanges.bind(this);
 

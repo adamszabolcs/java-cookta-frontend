@@ -9,9 +9,11 @@ import AddRecipe from "./pages/AddRecipe";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {faUndo} from '@fortawesome/free-solid-svg-icons'
+import {faPlusSquare} from "@fortawesome/free-solid-svg-icons";
 import {Navbar} from "./components/Navbar";
 
 library.add(faUndo);
+library.add(faPlusSquare);
 
 const HEALTH_FILTER = ["Gluten", "Soy", "Peanut", "Fish", "Dairy", "Shellfish", "Egg", "Tree-Nut", "Wheat"];
 const DIET_FILTERS = ["Vegetarian", "Paleo", "Low-Fat", "Low-Carb", "Low-Sodium", "Balanced"];
@@ -232,7 +234,7 @@ class App extends Component {
                         logoutUser={this.logout}
                     />
                     <Route exact={true} path='/' render={() =>
-                        <div className="App">
+                        <div className="Home">
                             <Home
                             searchprase={this.state.searchprase}
                             onSubmit={this.handleSubmit}
@@ -248,12 +250,12 @@ class App extends Component {
                         </div>
                     }/>
                     <Route exact={true} path='/registration' render={() => (
-                        <div className="App">
+                        <div className="Registration">
                             <Registration/>
                         </div>
                     )}/>
                     <Route exact={true} path='/profile' render={() => (
-                        <div className="App">
+                        <div className="Profile">
                             <Profile
                                 dietCheckboxes={this.state.diet}
                                 healthCheckboxes={this.state.health}
@@ -265,7 +267,7 @@ class App extends Component {
                         </div>
                     )}/>
                     <Route exact={true} path='/addrecipe' render={() => (
-                        <div className="App">
+                        <div className="AddRecipe">
                             <AddRecipe/>
                         </div>
                     )}/>
