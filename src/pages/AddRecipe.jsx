@@ -16,11 +16,9 @@ export default class AddRecipe extends Component {
         this.state = {
             healthInputs: 1,
             dietInputs: 1,
-            formData: {
-                label: "",
-                ingredients: "",
-                selectedFile: null,
-            }
+            label: "",
+            ingredients: "",
+            selectedFile: null,
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -76,27 +74,35 @@ export default class AddRecipe extends Component {
 
     };
 
-    handleUpload = () => {
-        // const data = new FormData();
-        const url = "http://localhost:8080/api/upload-recipe";
-        // data.append(''this.state.formData);
-        // console.log(data);
-        fetch(url, {
+    handleUpload = event => {
+        event.preventDefault();
+        const data = new FormData();
+        const fileUrl = "http://localhost:8080/uploadFile";
+        const dataUrl = "http://localhost:8080/api/recipe";
+        data.append('file', this.state.selectedFile);
+        fetch(dataUrl, {
             method: 'POST',
-            body: {
-                file: this.state.selectedFile,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
                 label: this.state.label,
-                ingredientLines: this.state.ingredientLines,
-            }
+                ingredientLines: this.state.ingredients,
+            })
+        }).then(console.log("adatfeltöltés sikeres!"));
+        fetch(fileUrl, {
+            method: 'POST',
+            body: data,
         })
             .then(console.log("sikeres!"))
             .catch(error => {
                 console.log(error);
-            })
+            });
     };
 
     handleInputChange = event => {
-        const {name, value} = event.target;
+        const {name} = event.target;
 
         switch (name) {
             case "recipeLabel":
@@ -142,7 +148,7 @@ export default class AddRecipe extends Component {
                         </div>
 
                         <div className="ingredients">
-                            <label htmlFor="email" className="inputLabel">Add ingredients</label>
+                            <label htmlFor="userName" className="inputLabel">Add ingredients</label>
                             <input type="text"
                                    placeholder="Ingredient"
                                    name="ingredients"
