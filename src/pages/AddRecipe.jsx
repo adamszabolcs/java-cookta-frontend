@@ -19,15 +19,22 @@ export default class AddRecipe extends Component {
             label: "",
             ingredients: "",
             selectedFile: null,
+            health: [],
+            diet: []
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSelectedFile = this.handleSelectedFile.bind(this);
         this.handleUpload = this.handleUpload.bind(this);
+        this.handleHealthOption = this.handleHealthOption.bind(this);
+        this.updateHealthState = this.updateHealthState.bind(this);
     }
 
     handleHealthClick = () => {
         this.setState({healthInputs: this.state.healthInputs + 1});
+        // let values = [].filter.call(select.options, o => o.selected).map(o => o.value);
+        // this.setState({health: values});
+        // console.log(this.state.health);
     };
 
     handleDietClick = () => {
@@ -42,7 +49,7 @@ export default class AddRecipe extends Component {
             healthInputs.push(
                 <div className="health">
                     <label htmlFor="userName" className="inputLabel">Choose health label</label>
-                    <select name="health" className="addRecipeDropdown">
+                    <select name="health" className="addRecipeDropdown" onChange={this.handleHealthOption}>
                         <option value="default" defaultValue={false}>No health label added</option>
                         {HEALTH_FILTER.map((health) =>
                             <option value={health}>{health}</option>
@@ -54,6 +61,25 @@ export default class AddRecipe extends Component {
         return healthInputs;
 
     };
+
+    updateHealthState = (newItem) => {
+        let currentState = this.state.health;
+        console.log("state before update");
+        console.log(currentState);
+        currentState.push(newItem);
+        this.setState(currentState);
+        console.log("state updated");
+        console.log(this.state.health);
+
+    }
+
+    handleHealthOption(event) {
+        let options = event.target.options;
+        let indexOfSelected = event.target.options.selectedIndex;
+        console.log(options[indexOfSelected].value);
+        let newHealth = options[indexOfSelected].value;
+        this.updateHealthState(newHealth);
+    }
 
     createDietSelect = () => {
         let dietInputs = [];
@@ -187,5 +213,4 @@ export default class AddRecipe extends Component {
             </div>
         );
     }
-
 }
