@@ -122,6 +122,10 @@ export default class AddRecipe extends Component {
                             />
                         </div>
 
+                        <div>
+                            <button type="submit" className="createRecipeButton">Create recipe</button>
+                        </div>
+
 
                     </form>
                 </div>
