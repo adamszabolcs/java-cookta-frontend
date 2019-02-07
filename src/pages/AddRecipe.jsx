@@ -25,6 +25,7 @@ export default class AddRecipe extends Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSelectedFile = this.handleSelectedFile.bind(this);
+        this.handleUpload = this.handleUpload.bind(this);
     }
 
     handleHealthClick = () => {
@@ -42,14 +43,14 @@ export default class AddRecipe extends Component {
         for (let i = 0; i < this.state.healthInputs; i++) {
             healthInputs.push(
                 <div className="health">
-                <label htmlFor="userName" className="inputLabel">Choose health label</label>
-                <select name="health" className="addRecipeDropdown">
-                    <option value="default" defaultValue={false}>No health label added</option>
-                    {HEALTH_FILTER.map((health) =>
-                        <option value={health}>{health}</option>
-                    )};
-                </select>
-            </div>)
+                    <label htmlFor="userName" className="inputLabel">Choose health label</label>
+                    <select name="health" className="addRecipeDropdown">
+                        <option value="default" defaultValue={false}>No health label added</option>
+                        {HEALTH_FILTER.map((health) =>
+                            <option value={health}>{health}</option>
+                        )};
+                    </select>
+                </div>)
 
         }
         return healthInputs;
@@ -75,10 +76,29 @@ export default class AddRecipe extends Component {
 
     };
 
+    handleUpload = () => {
+        // const data = new FormData();
+        const url = "http://localhost:8080/api/upload-recipe";
+        // data.append(''this.state.formData);
+        // console.log(data);
+        fetch(url, {
+            method: 'POST',
+            body: {
+                file: this.state.selectedFile,
+                label: this.state.label,
+                ingredientLines: this.state.ingredientLines,
+            }
+        })
+            .then(console.log("sikeres!"))
+            .catch(error => {
+                console.log(error);
+            })
+    };
+
     handleInputChange = event => {
         const {name, value} = event.target;
 
-        switch(name) {
+        switch (name) {
             case "recipeLabel":
                 this.setState({label: event.target.value});
                 break;
@@ -95,14 +115,13 @@ export default class AddRecipe extends Component {
     };
 
 
-
     render() {
 
         return (
             <div className="addRecipeWrapper tm-container-outer tm-banner-bg">
                 <div className="addRecipeBox">
                     <h1 className="recipeBoxTitle">Add new recipe</h1>
-                    <form>
+                    <form onSubmit={this.handleUpload}>
                         <div className="recipeLabel">
                             <label htmlFor="userName" className="inputLabel">Enter the recipe's title</label>
                             <input type="text"
@@ -145,17 +164,19 @@ export default class AddRecipe extends Component {
                         <div className="recipeInstruction">
                             <label htmlFor="password" className="inputLabel">Add instructions</label>
                             <textarea type="text"
-                                   rows="10"
-                                   cols="30"
-                                   placeholder="Instructions"
-                                   name="recipeInstruction"
-                                   className="addRecipeInput"
-                                   onChange={this.handleInputChange}
+                                      rows="10"
+                                      cols="30"
+                                      placeholder="Instructions"
+                                      name="recipeInstruction"
+                                      className="addRecipeInput"
+                                      onChange={this.handleInputChange}
                             />
                         </div>
 
                         <div>
-                            <button type="submit" onSubmit={this.sendAjax} className="createRecipeButton">Create recipe</button>
+                            <button type="submit" className="createRecipeButton">Create
+                                recipe
+                            </button>
                         </div>
 
 
