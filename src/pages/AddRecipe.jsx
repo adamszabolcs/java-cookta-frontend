@@ -20,7 +20,8 @@ export default class AddRecipe extends Component {
             ingredients: "",
             selectedFile: null,
             health: [],
-            diet: []
+            diet: [],
+            filename: "",
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -28,6 +29,8 @@ export default class AddRecipe extends Component {
         this.handleUpload = this.handleUpload.bind(this);
         this.handleHealthOption = this.handleHealthOption.bind(this);
         this.updateHealthState = this.updateHealthState.bind(this);
+        this.updateDietState = this.updateDietState.bind(this);
+        this.handleDietOption = this.handleDietOption.bind(this);
     }
 
     handleHealthClick = () => {
@@ -71,7 +74,7 @@ export default class AddRecipe extends Component {
         console.log("state updated");
         console.log(this.state.health);
 
-    }
+    };
 
     handleHealthOption(event) {
         let options = event.target.options;
@@ -79,7 +82,7 @@ export default class AddRecipe extends Component {
         console.log(options[indexOfSelected].value);
         let newHealth = options[indexOfSelected].value;
         this.updateHealthState(newHealth);
-    }
+    };
 
     createDietSelect = () => {
         let dietInputs = [];
@@ -88,16 +91,29 @@ export default class AddRecipe extends Component {
             dietInputs.push(
                 <div className="diet">
                     <label htmlFor="userName" className="inputLabel">Choose diet label</label>
-                    <select name="diet" className="addRecipeDropdown">
+                    <select name="diet" className="addRecipeDropdown" onChange={this.handleDietOption}>
                         <option value="default" defaultValue={false}>No diet label added</option>
                         {DIET_FILTERS.map((diet) =>
-                            <option value="health">{diet}</option>
+                            <option value={diet}>{diet}</option>
                         )};
                     </select>
                 </div>)
         }
         return dietInputs;
 
+    };
+
+    handleDietOption(event) {
+        let options = event.target.options;
+        let indexOfSelected = event.target.options.selectedIndex;
+        let newDiet = options[indexOfSelected].value;
+        this.updateDietState(newDiet);
+    }
+
+    updateDietState = (newItem) => {
+        let currentState = this.state.diet;
+        currentState.push(newItem);
+        this.setState(currentState);
     };
 
     handleUpload = event => {
@@ -111,6 +127,9 @@ export default class AddRecipe extends Component {
             body: JSON.stringify({
                 label: this.state.label,
                 ingredientLines: this.state.ingredients,
+                health: this.state.health,
+                diet: this.state.diet,
+                filename: this.state.selectedFile.name
             })
         });
         fetch(fileUrl, {
