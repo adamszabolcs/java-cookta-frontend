@@ -21,7 +21,10 @@ export default class AddRecipe extends Component {
                 ingredients: "",
                 selectedFile: null,
             }
-        }
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSelectedFile = this.handleSelectedFile.bind(this);
     }
 
     handleHealthClick = () => {
