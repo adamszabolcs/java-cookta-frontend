@@ -46,14 +46,6 @@ export default class Registration extends Component {
         e.preventDefault();
 
         if (formValid(this.state)) {
-            // console.log(
-            //     `
-            //     SUBMITTING
-            //     Username: ${this.state.userName}
-            //     Email: ${this.state.userEmail}
-            //     Password: ${this.state.userPassword}
-            //     Password2: ${this.state.userPassword}
-            //     `);
             fetch(apiRegUrl, {
                 method: 'POST',
                 headers: {
