@@ -15,7 +15,10 @@ export default class AddRecipe extends Component {
 
         this.state = {
             healthInputs: 1,
-            dietInputs: 1
+            dietInputs: 1,
+            formData: {
+                label: ""
+            }
         }
     }
 
@@ -66,6 +69,13 @@ export default class AddRecipe extends Component {
 
     };
 
+    handleInputChange = event => {
+        event.preventDefault();
+
+        this.setState({label: event.target.value});
+        console.log(this.state.label)
+    };
+
 
 
     render() {
@@ -81,6 +91,7 @@ export default class AddRecipe extends Component {
                                    placeholder="Title"
                                    name="recipeLabel"
                                    className="addRecipeInput"
+                                   onChange={this.handleInputChange}
                             />
                         </div>
 
