@@ -17,7 +17,9 @@ export default class AddRecipe extends Component {
             healthInputs: 1,
             dietInputs: 1,
             formData: {
-                label: ""
+                label: "",
+                ingredients: "",
+                selectedFile: null,
             }
         }
     }
@@ -45,6 +47,7 @@ export default class AddRecipe extends Component {
                     )};
                 </select>
             </div>)
+
         }
         return healthInputs;
 
@@ -70,10 +73,22 @@ export default class AddRecipe extends Component {
     };
 
     handleInputChange = event => {
-        event.preventDefault();
+        const {name, value} = event.target;
 
-        this.setState({label: event.target.value});
-        console.log(this.state.label)
+        switch(name) {
+            case "recipeLabel":
+                this.setState({label: event.target.value});
+                break;
+            case "ingredients":
+                this.setState({ingredients: event.target.value});
+                break;
+        }
+    };
+
+    handleSelectedFile = event => {
+        this.setState({
+            selectedFile: event.target.files[0]
+        });
     };
 
 
@@ -100,6 +115,7 @@ export default class AddRecipe extends Component {
                             <input type="file"
                                    name="pic"
                                    accept="image/*"
+                                   onChange={this.handleSelectedFile}
                             />
                         </div>
 
@@ -109,6 +125,7 @@ export default class AddRecipe extends Component {
                                    placeholder="Ingredient"
                                    name="ingredients"
                                    className="addRecipeInput"
+                                   onChange={this.handleInputChange}
                             />
                         </div>
 
@@ -130,11 +147,12 @@ export default class AddRecipe extends Component {
                                    placeholder="Instructions"
                                    name="recipeInstruction"
                                    className="addRecipeInput"
+                                   onChange={this.handleInputChange}
                             />
                         </div>
 
                         <div>
-                            <button type="submit" className="createRecipeButton">Create recipe</button>
+                            <button type="submit" onSubmit={this.sendAjax} className="createRecipeButton">Create recipe</button>
                         </div>
 
 
