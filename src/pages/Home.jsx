@@ -39,11 +39,7 @@ class Home extends Component {
             passed = "search/" + query;
         }
         console.log(passed);
-        fetch("http://localhost:8080/api/" + passed, {
-            headers: {
-                'Authorization': 'Bearer ds32fdssg3vdfdf',
-            }
-        })
+        fetch("http://localhost:8080/api/" + passed)
             .then(response => response.json())
             .then(responseData => {
                 this.setState({

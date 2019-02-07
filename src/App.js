@@ -124,10 +124,8 @@ class App extends Component {
 
     submitLogin(username) {
         let url = 'http://localhost:8080/cookta/authentication';
-        //let data = {username: this.state.username, password: this.state.password};
         let data = {username: username};
-        console.log("login");
-        console.log(data);
+
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),

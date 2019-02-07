@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {FilterBar} from "./FilterBar";
 import {Recipes} from "./Recipes";
+import axios from 'axios';
+
 
 export class UserInfoBox extends Component {
 
@@ -18,10 +20,26 @@ export class UserInfoBox extends Component {
     componentDidMount() {
 
         this.setState({isLoading: true});
+        //this.securedPing();
 
         let username = localStorage.getItem("username");
 
-        fetch("http://localhost:8080/favourites/" + username)
+        const headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem("accessToken"));
+
+        const options = {
+            method : 'GET',
+            headers
+        };
+
+        const reqest = new Request("http://localhost:8080/favourites/" + username, options);
+
+        /*fetch("http://localhost:8080/favourites/" + username, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
+        })*/
+        fetch(reqest)
             .then(response => response.json())
             .then(responseData => {
                     this.setState({
@@ -32,6 +50,15 @@ export class UserInfoBox extends Component {
             .catch(error => {
                 console.log('Error fetching and parsing data: ', error);
             });
+    }
+
+    securedPing() {
+        const API_URL = "http://localhost:8080/favourites/" + localStorage.getItem("username");
+        const headers = { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`};
+        axios.get(API_URL, {headers})
+            //.then(response => response.json())
+            .then(responseData => this.setState({ recipes: responseData, isLoading: false }))
+            .catch(error => this.setState({ recipes: error.message }));
     }
 
     saveIntoleranceChanges = event => {
@@ -45,7 +72,8 @@ export class UserInfoBox extends Component {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             },
             body: JSON.stringify({
                 diet: this.props.dietCheckboxes,
