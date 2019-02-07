@@ -82,20 +82,15 @@ export default class AddRecipe extends Component {
         data.append('file', this.state.selectedFile);
         fetch(dataUrl, {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify({
                 label: this.state.label,
                 ingredientLines: this.state.ingredients,
             })
-        }).then(console.log("adatfeltöltés sikeres!"));
+        });
         fetch(fileUrl, {
             method: 'POST',
             body: data,
         })
-            .then(console.log("sikeres!"))
             .catch(error => {
                 console.log(error);
             });
