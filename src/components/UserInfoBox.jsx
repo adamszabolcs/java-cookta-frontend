@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {FilterBar} from "./FilterBar";
 import {Recipes} from "./Recipes";
-import axios from 'axios';
 
 
 export class UserInfoBox extends Component {
@@ -20,7 +19,6 @@ export class UserInfoBox extends Component {
     componentDidMount() {
 
         this.setState({isLoading: true});
-        //this.securedPing();
 
         let username = localStorage.getItem("username");
 
@@ -32,14 +30,9 @@ export class UserInfoBox extends Component {
             headers
         };
 
-        const reqest = new Request("http://localhost:8080/favourites/" + username, options);
+        const request = new Request("http://localhost:8080/favourites/" + username, options);
 
-        /*fetch("http://localhost:8080/favourites/" + username, {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-            }
-        })*/
-        fetch(reqest)
+        fetch(request)
             .then(response => response.json())
             .then(responseData => {
                     this.setState({
@@ -52,21 +45,12 @@ export class UserInfoBox extends Component {
             });
     }
 
-    securedPing() {
-        const API_URL = "http://localhost:8080/favourites/" + localStorage.getItem("username");
-        const headers = { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`};
-        axios.get(API_URL, {headers})
-            //.then(response => response.json())
-            .then(responseData => this.setState({ recipes: responseData, isLoading: false }))
-            .catch(error => this.setState({ recipes: error.message }));
-    }
-
     saveIntoleranceChanges = event => {
         event.preventDefault();
         localStorage.setItem("diet", JSON.stringify(this.props.dietCheckboxes));
         localStorage.setItem("health", JSON.stringify(this.props.healthCheckboxes));
 
-        let username = JSON.parse(localStorage.getItem("username"));
+        let username = localStorage.getItem("username");
 
         fetch("http://localhost:8080/intolerance/" + username, {
             method: 'POST',
@@ -81,7 +65,6 @@ export class UserInfoBox extends Component {
             })
         }).then(() => console.log("lol"))
             .catch(error => {
-                // this.setState({hits: []});
                 console.log('Error fetching and parsing data: ', error);
             });
 

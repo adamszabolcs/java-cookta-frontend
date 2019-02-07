@@ -33,6 +33,7 @@ export class Navbar extends Component {
                 }
             </nav>
         )
+
     }
 
 }
