@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import Link from "react-router-dom/es/Link";
 import '../App.css';
 import '../templatemo-style.css';
 import '../addrecipe.css';
@@ -220,9 +221,11 @@ export default class AddRecipe extends Component {
                         </div>
 
                         <div>
-                            <button type="submit" className="createRecipeButton">Create
-                                recipe
-                            </button>
+                            <Link to="/">
+                                <button type="submit" className="createRecipeButton">Create
+                                    recipe
+                                </button>
+                            </Link>
                         </div>
 
 
