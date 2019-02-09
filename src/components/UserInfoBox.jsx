@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import {FilterBar} from "./FilterBar";
 import {Recipes} from "./Recipes";
 
+
 export class UserInfoBox extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.saveIntoleranceChanges = this.saveIntoleranceChanges.bind(this);
 
@@ -16,20 +17,30 @@ export class UserInfoBox extends Component {
     }
 
     componentDidMount() {
+
         this.setState({isLoading: true});
 
-        let username = JSON.parse(localStorage.getItem("username"));
-        console.log(username);
+        let username = localStorage.getItem("username");
 
-        fetch("http://localhost:8080/favourites/" + username)
+        const headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem("accessToken"));
+
+        const options = {
+            method : 'GET',
+            headers
+        };
+
+        const request = new Request("http://localhost:8080/favourites/" + username, options);
+
+        fetch(request)
             .then(response => response.json())
             .then(responseData => {
-                this.setState({
-                    recipes: responseData, isLoading: false
-                });
+                    this.setState({
+                        recipes: responseData, isLoading: false
+                    });
+                //}
             })
             .catch(error => {
-                // this.setState({hits: []});
                 console.log('Error fetching and parsing data: ', error);
             });
     }
@@ -39,13 +50,14 @@ export class UserInfoBox extends Component {
         localStorage.setItem("diet", JSON.stringify(this.props.dietCheckboxes));
         localStorage.setItem("health", JSON.stringify(this.props.healthCheckboxes));
 
-        let username = JSON.parse(localStorage.getItem("username"));
+        let username = localStorage.getItem("username");
 
         fetch("http://localhost:8080/intolerance/" + username, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             },
             body: JSON.stringify({
                 diet: this.props.dietCheckboxes,
@@ -53,7 +65,6 @@ export class UserInfoBox extends Component {
             })
         }).then(() => console.log("lol"))
             .catch(error => {
-                // this.setState({hits: []});
                 console.log('Error fetching and parsing data: ', error);
             });
 
