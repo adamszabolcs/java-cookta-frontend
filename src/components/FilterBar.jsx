@@ -40,7 +40,7 @@ export class FilterBar extends Component {
                     <div className="col-sm-6 allergies border-right border-dark">
                         {this.createCheckboxes()}
                     </div>
-                    <div className="col-sm-6 diet">
+                    <div className="col-sm-6 allergies">
                         {this.createCheckboxes2()}
                     </div>
 

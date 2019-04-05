@@ -97,7 +97,6 @@ class Home extends Component {
                     healthCheckboxes={this.props.healthCheckboxes}
                     handleCheckBoxChange={this.props.handleCheckBoxChange}
                 />
-                <Featured/>
                 <Recipes
                     recipes={this.state.hits}
                     isLoading={this.state.isLoading}
